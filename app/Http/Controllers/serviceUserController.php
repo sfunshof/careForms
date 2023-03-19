@@ -37,7 +37,7 @@ class serviceUserController extends Controller
         
         //Get the service users question form
         $quesForm=DB::select('select * from serviceuserformtable');
-        return view('mobile.pages.serviceUserhome', ['serviceUser' => $serviceUser,'quesType' =>$quesType,   'quesForm' => $quesForm ,  'quesCount'=>count($quesForm), 'userID' => $userID ]);
+        return view('mobile.pages.serviceUserHome', ['serviceUser' => $serviceUser,'quesType' =>$quesType,   'quesForm' => $quesForm ,  'quesCount'=>count($quesForm), 'userID' => $userID ]);
     }
     public function save_serviceUserFeedback(Request $request){
         
