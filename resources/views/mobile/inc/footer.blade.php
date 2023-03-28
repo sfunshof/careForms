@@ -1,9 +1,6 @@
-
-{{-- Copy-Right Area --}}
-<div class="bottom ms-5">
+<div class="text-light">   
     <small class="text-muted "> 
-            Copyright @<?php echo date("Y"); ?> Sparkles Healthcare LTD. All Rights Reserved
-    </small>          
-      
-</div>   
-{{-- Copy-Right Area End --}}
+            Copyright @<?php echo date("Y"); ?> Sparkles Healthcare LTD.  <br>
+             All Rights Reserved
+    </small> 
+</div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  class="h-100">
     <head>
         {{-- Required Meta Tags --}}
         <meta charset="utf-8">
@@ -21,22 +21,37 @@
         {{-- Favicon --}}
         <link rel="icon" type="image/png" href="{{asset('favicon.png')}}">
     </head>
-    <body>
+    <body class="d-flex flex-column h-100 h-sbar" > 
 
-        <div class="container-fluid rounded-top rounded-bottom border border-secondary m-1">
+        <div class="container-fluid rounded-top rounded-bottom mt-1">
+            {{-- Header --}}
+            <div class="header">
+                @include ('mobile.inc.header')   
+            </div>   
+            {{-- End Header --}}
+
             {{-- Page Content --}}
             @yield('contents')
             {{-- End Page Content --}}
-            
-            {{--  Buttons --}}
-            @include ('mobile.inc.buttons')   
-            {{--  End of buttons --}}
-            {{-- Footer Area --}}
-            @include('mobile.inc.footer')
-            {{-- End Footer Area --}}
-
         </div>
-        
+        <footer class="footer mt-auto  bg-white ">
+            <div class="container">
+                
+                <div class="row">
+                    {{--  Buttons --}}
+                    @include ('mobile.inc.buttons')   
+                    {{--  End of buttons --}}
+                </div>   
+                
+                <div class="row">
+                    {{-- Footer Area --}}
+                    @include('mobile.inc.footer')
+                    {{-- End Footer Area --}}
+                </div>
+            </div>      
+        </footer>   
+
+
         {{-- JS Ordinary  --}} 
         @include('mobile.inc.jsfooter')
         {{-- End JS ordinary --}}
