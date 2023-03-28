@@ -17,7 +17,7 @@ class serviceUserController extends Controller
         $user = DB::select('select * from serviceuserdetailstable where userID = ? and uniqueNo = ?', [$userID,$uniqueNo]);
         //If combination not found from tampering Service user not found
         if (!$user){
-            return view('mobile.pages.serviceUserNotFound');
+            return view('mobile.pages.serviceUserNotFound', ['serviceUser' => $user] );
         }
        
         //Mr John Doe of 23 London Rd, Redhill
