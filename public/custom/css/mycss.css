@@ -5,16 +5,6 @@
   overflow-x: hidden;
 }
 
-.headerx{
-  background-color:#2f2f2f;
-  color:#fff;
-  text-align:center;
-  height:70px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
 /* button sizes */
 .full33 {
   display: block;

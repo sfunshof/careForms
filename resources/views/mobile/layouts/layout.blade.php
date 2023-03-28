@@ -25,7 +25,7 @@
 
         <div class="container-fluid rounded-top rounded-bottom mt-1">
             {{-- Header --}}
-            <div class="header">
+            <div class="header bg-primary text-white text-center text-lg-start pt-2 pb-2 ">
                 @include ('mobile.inc.header')   
             </div>   
             {{-- End Header --}}
