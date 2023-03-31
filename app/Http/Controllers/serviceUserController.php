@@ -24,8 +24,8 @@ class serviceUserController extends Controller
         $serviceUser = $user[0]->title . ' ' . $user[0]->firstName . ' ' . $user[0]->lastName . ' of ' . $user[0]->address;
 
 
-        //Check ifit has already been submitted
-        $user = DB::select('select * from  responsetable where userID = ? and date_received  is null', [$userID]);
+        //Check if it has already been submitted
+        $user = DB::select('select * from  responsetable where userID = ?  and responseTypeID=1   and date_received  is null', [$userID]);
 
         if (!$user) {
             return view('mobile.pages.serviceUserAlreadyDone' , ['serviceUser' => $serviceUser] );
@@ -50,7 +50,8 @@ class serviceUserController extends Controller
         $q=DB::table('responsetable')
             ->where([
                       ['date_received', NULL],
-                      ['userID', $userID]
+                      ['userID', $userID],
+                      ['responseTypeID', 1]
                     ])
             ->update([
                    'date_received' => Carbon::now(),
@@ -64,7 +65,7 @@ class serviceUserController extends Controller
     }   
     
     public function successSaved(){
-        return view('mobile.pages.successSaved');
+        return view('mobile.pages.successSaved', ['serviceUser' => ''] );
     }   
 
 }

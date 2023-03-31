@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Spatie\Honeypot\ProtectAgainstSpam;
 use App\Http\Controllers\serviceUserController;
 use App\Http\Controllers\backofficeController;
+use App\Http\Controllers\utilityController;
+ 
  
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +30,10 @@ Route::get("serviceUser/successSaved", [serviceUserController::class, 'successSa
 Route::get("dashboard", [backofficeController::class, 'show_dashboard']);
 Route::get("serviceUser/addnew", [backofficeController::class, 'addnew_serviceUser']);
 Route::get("serviceUser/update", [backofficeController::class, 'update_serviceUser']);
-Route::get("serviceUser/show_feedback", [backofficeController::class, 'show_feedback_serviceUser']);
+Route::get("serviceUser/show_surveyFeedback", [backofficeController::class, 'show_surveyFeedback_serviceUser']);
 Route::get("buildforms/serviceUserFeedback", [backofficeController::class, 'build_serviceUserFeedback']);
 Route::get("buildforms/employeeFeedback", [backofficeController::class, 'build_employeeFeedback']);
+Route::get("companyprofile", [backofficeController::class, 'update_companyProfile']);
+
+Route::post("utility/serviceuser_sendsms", [utilityController::class, 'serviceuser_sendSMS']);
+Route::post("utility/serviceuser_viewresponse", [utilityController::class, 'serviceuser_viewResponse']);

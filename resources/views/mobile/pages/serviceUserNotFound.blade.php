@@ -3,7 +3,7 @@
     Home
 @endsection
 @section('contents')
-    <div class="container">
+    <div class="container pb-3 border-top">
         <div class="alert alert-danger mt-2" role="alert" id="errMsgID">
             Error: Service User not found
         </div>

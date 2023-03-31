@@ -10,9 +10,9 @@
   <meta name="csrf-token" content="{{ csrf_token() }}" />
 
    {{-- Favicon --}}
-   <link rel="icon" type="image/png" href="{{asset('favicon.png')}}">
+   <link rel="icon" type="image/png" href="{{asset('assets/img/favicon.png')}}">
    <link href="{{asset('assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon" >
-
+   
   {{-- CSS Header --}}
   @include('backoffice.inc.cssheader')
   {{--- End CSS Header --}}
@@ -35,9 +35,9 @@
      @include('backoffice.inc.headerlogo')
     {{--- End Header logo --}}
 
-    {{-- search bar  --}}
+    {{-- search bar  
     @include('backoffice.inc.search')
-    {{-- End Search Bar --}}
+    End Search Bar --}}
 
     {{-- Nav Bar Menu   --}}
     @include('backoffice.inc.navbarmenu')
@@ -49,15 +49,20 @@
   @include('backoffice.inc.sidebarmenu')
   <!-- End Sidebar-->
 
-  <main id="main" class="main">
+   <main id="main" class="main">
         {{--  Page Title --}}
         @include('backoffice.inc.pagetitle') 
         {{-- End Page Title --}}
+       
         {{--  Page Contents --}}
         @yield('contents')
         {{--  End Page Contents --}}
     
   </main><!-- End #main -->
+
+   {{--  Spinner for ajax calls --}}
+   <div hidden  id="spinner"></div> 
+   {{--  End of Spinner  --}}
 
   <!-- ======= Footer ======= -->
        @include('backoffice.inc.footer') 

@@ -3,8 +3,8 @@
     Home
 @endsection
 @section('contents')
-   <div class="container">
-        <div class="alert alert-danger" role="alert" id="errMsgID">
+   <div class="container pb-3 border-top">
+        <div class="alert alert-danger mt-3" role="alert" id="errMsgID">
             Error: Information has already been submitted
         </div>
     </div> 

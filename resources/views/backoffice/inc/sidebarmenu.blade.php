@@ -3,7 +3,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="}">
+        <a class="nav-link " href="{{ url('/dashboard')}}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -27,8 +27,8 @@
             </a>
           </li>
           <li>
-            <a href="{{ url('/serviceUser/show_feedback')}}">
-              <i class="bi bi-circle"></i><span>Service Feedback</span>
+            <a href="{{ url('/serviceUser/show_surveyFeedback')}}">
+              <i class="bi bi-circle"></i><span>Service User Survey</span>
             </a>
           </li>
         </ul>
@@ -55,7 +55,13 @@
       </li>
       {{-- End Forms Nav --}}
 
-
+      {{--  Company Profile --}}
+      <li class="nav-item">
+        <a class="nav-link " href="{{ url('/companyprofile')}}">
+          <i class="bi bi-person"></i>
+          <span>Company Profile</span>
+        </a>
+      {{--  End company Profile --}}
 
     </ul>
 

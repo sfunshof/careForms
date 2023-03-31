@@ -1,9 +1,10 @@
 "use strict";
 let serviceUserSelectYearFunc=function(){}
 let serviceUserSelectMonthFunc=function(){}
+let surveyServiceuserFunc=function(){}
 
 function ready(callbackFunc) {
-    if (document.readyState !== 'loading') {
+  if (document.readyState !== 'loading') {
       // Document is already ready, call the callback directly
       callbackFunc();
     } else if (document.addEventListener) {
@@ -16,16 +17,76 @@ function ready(callbackFunc) {
           callbackFunc();
         }
       });
-    }
   }
+}
   
   ready(function() {
     //This isa very silly approach. I should have use getElementById. 
     // make everything
-    serviceUserSelectYearFunc=function(id){
-        alert(id.value)
+    
+    //survey feedback table
+    const dataTable= new simpleDatatables.DataTable("#serviceUserSurveyFeedbackTableID",{
+      searchable:false,
+      perPageSelect:false,
+      fixedheight:true,
+      sortable:false,
+      labels:{
+        info:""
+      }
+    })
+        
+    serviceUserSelectYearFunc=function(){
+        alert("best")
     }
-    serviceUserSelectMonthFunc=function(id){
-        alert(id.value)
+    serviceUserSelectMonthFunc=function(){
+        alert("tesr")
     }
+    surveyServiceuserFunc=function(userID, statusID, tel, uniqueNo){
+      //statusID 1 Created not sent  => Send
+      //statusID 2 Sent not received => Re-send
+      //statusID 3 Received => view
+      //const token = document.head.querySelector("[name~=csrf-token][content]").content;
+      const spinner = document.getElementById("spinner");
+      spinner.removeAttribute('hidden');
+
+      let URLpath=serviceUser_sendSMSURL;
+      if (statusID==3){
+          URLpath=serviceUser_viewResponse;
+      }
+      
+      let post_data={
+      userID:userID,
+      statusID:statusID,
+      tel:tel,
+      uniqueNo:uniqueNo
+    }
+    fetch(URLpath, {
+      headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json, text-plain, */*",
+          "X-Requested-With": "XMLHttpRequest",
+          "X-CSRF-TOKEN": token
+          },
+      method: 'Post',
+      credentials: "same-origin",
+      body: JSON.stringify(post_data)
+  })
+  .then((data) => {
+      spinner.setAttribute('hidden', '');
+      //alert(JSON.stringify(data))
+      window.location.reload();
+      
+      alert("Sent");
+  })
+  .catch(function(error) {
+      alert(error);
+      spinner.setAttribute('hidden', '');
+  }); 
+
+
+  }
+
+    
+    
+
   }) 
