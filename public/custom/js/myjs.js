@@ -200,8 +200,8 @@ function ready(callbackFunc) {
     nextFunc=function(x){
        // errMsgID.style.display= "none"
         //slideUp(errMsgID)
-        prevBtnEnabled()
         if (!validateFunc()) return 0
+        prevBtnEnabled()
         let current=divCount
         if (divCount>= (x-1)) { 
             divCount=x-1

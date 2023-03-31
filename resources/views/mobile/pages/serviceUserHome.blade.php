@@ -15,6 +15,8 @@
                 $quesNameArray=[];
                 $quesOptionsArray=[];
                 $hidden='';
+                $pageNo=0;
+                $pageNostr="";
             ?>
             @foreach($quesForm as $ques)   
                 <?php 
@@ -30,20 +32,21 @@
                         //array to hold the Options
                         array_push($quesOptionsArray, $ques->quesAttrib); 
                     //}    
+                    
+                    if ($ques->quesTypeID > 0){
+                           $pageNo++;
+                           $pageNoStr=$pageNo .  " .";
+                        }elseif ($ques->quesTypeID == 0){
+                           $pageNoStr="";
+                    }    
+                    
                     $parentIndex=$loop->index;
                     if ($parentIndex==1) $hidden='style=display:none';//hide all the other pages except page 1
                     $pageNo=$parentIndex+1;
                 ?>
                 <div id="div{{$loop->index}}"  {{ $hidden }} > {{--  We use this instead of quesID b/c quesID may start from 20: many clients --}}
-                    
-                    {{--  first page and last page have no numbers --}}  
-                    @if (($loop->first) && ($ques->quesTypeID ==0))
-                        <h5  class="text-secondary m-3 fs-5">{{$ques->quesName}}</h5>
-                    @elseif (($loop->last) && ($ques->quesTypeID ==0))
-                        <h5  class="text-secondary m-3 fs-5">{{$ques->quesName}}</h5>
-                    @else    
-                        <h5  class="text-secondary m-3 fs-5"> {{ $loop->index }}.  {{$ques->quesName}}</h5>
-                    @endif
+                    <h5  class="text-secondary m-3 fs-5"> {{ $pageNoStr }}  {{$ques->quesName}}</h5>
+    
                     @if ($ques->quesTypeID >0)
                         {{-- radio options --}}
                         @if ($ques->quesTypeID ==2)
