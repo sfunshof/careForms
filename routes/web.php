@@ -30,7 +30,7 @@ Route::get("serviceUser/successSaved", [serviceUserController::class, 'successSa
 Route::get("dashboard", [backofficeController::class, 'show_dashboard']);
 Route::get("serviceUser/addnew", [backofficeController::class, 'addnew_serviceUser']);
 Route::get("serviceUser/update", [backofficeController::class, 'update_serviceUser']);
-Route::get("/serviceUser/show_surveyFeedback", [backofficeController::class, 'show_surveyFeedback_serviceUser']);
+Route::get("serviceUser/show_surveyfeedback", [backofficeController::class, 'show_surveyFeedback_serviceUser']);
 Route::get("buildforms/serviceUserFeedback", [backofficeController::class, 'build_serviceUserFeedback']);
 Route::get("buildforms/employeeFeedback", [backofficeController::class, 'build_employeeFeedback']);
 Route::get("companyprofile", [backofficeController::class, 'update_companyProfile']);

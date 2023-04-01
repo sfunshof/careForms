@@ -27,7 +27,7 @@
             </a>
           </li>
           <li>
-            <a href="{{ url('/serviceUser/show_surveyFeedback')}}">
+            <a href="{{ url('/serviceUser/show_surveyfeedback')}}">
               <i class="bi bi-circle"></i><span>Service User Survey</span>
             </a>
           </li>
