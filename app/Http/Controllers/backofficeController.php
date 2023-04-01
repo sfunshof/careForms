@@ -11,6 +11,7 @@ class backofficeController extends Controller
     public function show_dashboard(){
        return view('backoffice.pages.dashboard');
     }
+
     public function addnew_serviceUser(){
         
         return view('backoffice.pages.addnew_serviceUser');
@@ -33,7 +34,7 @@ class backofficeController extends Controller
         
         //** 1st get the ones with date posted */
         //** 2nd get the blank ones that do not have posted date as blank */
-       $selectFeedback=" SELECT *  from responsetable
+        $selectFeedback=" SELECT *  from responsetable
                          WHERE  month(date_posted)=month(now())  and year(date_posted)=year(now()) and responseTypeID=1
                         UNION
                            select *  from responsetable
@@ -43,14 +44,14 @@ class backofficeController extends Controller
         $responseStatus = DB::select($selectFeedback);
         $selectDetails="select * from serviceuserdetailstable";
         $usersDetails=DB::select ($selectDetails);
-        
-       
+              
         return view('backoffice.pages.show_surveyFeedback_serviceUser',
               ['responseStatus' => $responseStatus, 'usersDetails'=> $usersDetails]);
     }
+
     
     public function build_serviceUserFeedback(){
-        
+       
         return view('backoffice.pages.build_serviceUserFeedback');
     }   
 
@@ -60,7 +61,8 @@ class backofficeController extends Controller
     }
     
     public function update_companyProfile(){
-        return view('backoffice.pages.update_companyProfile');
+        return "hello ";
+        //return view('backoffice.pages.update_companyProfile');
     }
 
 
