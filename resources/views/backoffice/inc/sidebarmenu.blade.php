@@ -57,7 +57,7 @@
 
       {{--  Company Profile --}}
       <li class="nav-item">
-        <a class="nav-link " href="{{ url('companyprofile')}}">
+        <a class="nav-link " href="{{ url('/companyprofile')}}">
           <i class="bi bi-person"></i>
           <span>Company Profile</span>
         </a>
