@@ -27,7 +27,10 @@ function ready(callbackFunc) {
     //This isa very silly approach. I should have use getElementById. 
     // make everything hidden except the fir div
     //These are all the div pls fake one incase we need to go up to 20 They are hard coded 
-    const divs = [div0, div1, div2, div3,div4,div5, div7, div8, div9, div10,div11,div12, div13,div14,div15, div16,div17, div18, div19, div20]
+    const divs = [div0, div1, div2, div3,div4,div5, div6, div7, div8, div9, div10,div11,div12, div13,div14,div15, div16,div17, div18, div19, div20,
+        div21,div22,div23,div24,div25, div26, div27, div28, div29, div30,
+        div31,div32,div33,div34,div35, div36, div37, div38, div39, div40,
+        div41,div42,div43,div44,div45, div46, div47, div48, div49, div50]
    
     submitBtnID.style.display = 'none';
     errMsgID.style.display= "none"

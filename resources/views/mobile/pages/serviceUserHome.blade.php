@@ -87,7 +87,7 @@
 
 
         {{--  fake ids to be used in js --}}
-        @for ($i = $quesCount; $i < 21; $i++)
+        @for ($i = $quesCount; $i < 51; $i++)
             <div id="div{{ $i}}" class="d-none" > </div>
         @endfor
         <script>    
