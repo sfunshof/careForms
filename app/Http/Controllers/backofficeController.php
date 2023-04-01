@@ -44,8 +44,9 @@ class backofficeController extends Controller
         $selectDetails="select * from serviceuserdetailstable";
         $usersDetails=DB::select ($selectDetails);
         
-        return view('backoffice.pages.show_surveyFeedback_serviceUser',
-              ['responseStatus' => $responseStatus, 'usersDetails'=> $usersDetails]);
+       return "ok";
+        // return view('backoffice.pages.show_surveyFeedback_serviceUser',
+       //       ['responseStatus' => $responseStatus, 'usersDetails'=> $usersDetails]);
     }
     
     public function build_serviceUserFeedback(){

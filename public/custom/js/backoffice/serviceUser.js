@@ -25,15 +25,18 @@ function ready(callbackFunc) {
     // make everything
     
     //survey feedback table
-    const dataTable= new simpleDatatables.DataTable("#serviceUserSurveyFeedbackTableID",{
-      searchable:false,
-      perPageSelect:false,
-      fixedheight:true,
-      sortable:false,
-      labels:{
-        info:""
-      }
-    })
+   let dataTable = document.getElementById('serviceUserSurveyFeedbackTableID') || false
+    if (dataTable) {
+      let dataTablet = new simpleDatatables.DataTable("#serviceUserSurveyFeedbackTableID",{
+        searchable:false,
+        perPageSelect:false,
+        fixedheight:true,
+        sortable:false,
+        labels:{
+          info:""
+        }
+      })
+    }  
         
     serviceUserSelectYearFunc=function(){
         alert("best")
