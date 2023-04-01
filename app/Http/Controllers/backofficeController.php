@@ -61,8 +61,8 @@ class backofficeController extends Controller
     }
     
     public function update_companyProfile(){
-        return "hello ";
-        //return view('backoffice.pages.update_companyProfile');
+       
+        return view('backoffice.pages.update_companyProfile');
     }
 
 
