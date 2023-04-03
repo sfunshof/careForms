@@ -22,15 +22,18 @@ Route::get('/', function () {
 });
 
 
-Route::get('/{uniqueNo}/{id}', [serviceUserController::class, 'index'])->where('id','[0-9]+');
-Route::post("serviceUser/save_feedback", [serviceUserController::class, 'save_serviceUserFeedback']);
-Route::get("serviceUser/successSaved", [serviceUserController::class, 'successSaved']);
+Route::get('{responseTypeID}/{uniqueNo}/{id}', [serviceUserController::class, 'index'])->where(['id'=>'[0-9]+', 'responseTypeID'=>'[0-9]+' ]);
+Route::post("user/save_feedback", [serviceUserController::class, 'save_userFeedback']);
+Route::get("user/successSaved/{companyID}", [serviceUserController::class, 'successSaved']);
 
 
 Route::get("dashboard", [backofficeController::class, 'show_dashboard']);
 Route::get("serviceUser/addnew", [backofficeController::class, 'addnew_serviceUser']);
 Route::get("serviceUser/update", [backofficeController::class, 'update_serviceUser']);
 Route::get("serviceUser/show_surveyfeedback", [backofficeController::class, 'show_surveyFeedback_serviceUser']);
+Route::get("serviceUser/show_complaints", [backofficeController::class, 'show_complaints_serviceUser']);
+Route::get("serviceUser/show_compliments", [backofficeController::class, 'show_compliments_serviceUser']);
+
 Route::get("buildforms/serviceUserFeedback", [backofficeController::class, 'build_serviceUserFeedback']);
 Route::get("buildforms/employeeFeedback", [backofficeController::class, 'build_employeeFeedback']);
 Route::get("companyprofile", [backofficeController::class, 'update_companyProfile']);

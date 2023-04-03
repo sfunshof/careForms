@@ -15,8 +15,10 @@
                 $quesNameArray=[];
                 $quesOptionsArray=[];
                 $hidden='';
+                $quesNo=0; //Counts the right questionanire
                 $pageNo=0;
                 $pageNostr="";
+                $successURL= 'user/successSaved/' . $mobile_companyName[0]->companyID;
             ?>
             @foreach($quesForm as $ques)   
                 <?php 
@@ -34,8 +36,8 @@
                     //}    
                     
                     if ($ques->quesTypeID > 0){
-                           $pageNo++;
-                           $pageNoStr=$pageNo .  " .";
+                           $quesNo++;
+                           $pageNoStr=$quesNo .  " .";
                         }elseif ($ques->quesTypeID == 0){
                            $pageNoStr="";
                     }    
@@ -96,9 +98,10 @@
             let quesNameArray=@json($quesNameArray);      // how, What, how, ...
             let quesOptionsArray=@json($quesOptionsArray); //[good,better,best], [ok,fair,not], [yes,no]
             
+            let responseTypeID={{$responseTypeID}};
             let userID={{ $userID }};
-            let serviceUser_saveFeedbackURL= "{{ url('serviceUser/save_feedback')}}"; 
-            let serviceUser_successSaveURL= "{{ url('serviceUser/successSaved')}}"
+            let user_saveFeedbackURL= "{{ url('user/save_feedback')}}"; 
+            let user_successSaveURL= "{{ url($successURL)}}";
             let token = "{{ csrf_token() }}";
             
             //alert(JSON.stringify(quesOptionsArray));

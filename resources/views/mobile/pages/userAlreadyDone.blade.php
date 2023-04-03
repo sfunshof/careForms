@@ -5,7 +5,10 @@
 @section('contents')
    <div class="container pb-3 border-top">
         <div class="alert alert-danger mt-3" role="alert" id="errMsgID">
-            Error: Information has already been submitted
+            Error: You cannot proceed because the {{ $userType }} information needed: <br>
+            Has not yet been prepared <br>
+            Has already been submitted <br>
+            Has already expired
         </div>
     </div> 
      

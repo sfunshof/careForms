@@ -50,6 +50,19 @@ class backofficeController extends Controller
     }
 
     
+    public function show_compliments_serviceUser(){
+        return view('backoffice.pages.show_compliments_serviceUser');
+    }
+    
+    public function show_complaints_serviceUser(){
+        return view('backoffice.pages.show_complaints_serviceUser');
+    }
+
+
+    
+
+
+
     public function build_serviceUserFeedback(){
        
         return view('backoffice.pages.build_serviceUserFeedback');
@@ -64,6 +77,10 @@ class backofficeController extends Controller
        
         return view('backoffice.pages.update_companyProfile');
     }
+
+    
+
+
 
 
 }

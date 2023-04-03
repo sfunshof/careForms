@@ -19,7 +19,7 @@
         </title>
         
         {{-- Favicon --}}
-        <link rel="icon" type="image/png" href="{{asset('favicon.png')}}">
+        <link rel="icon" type="image/png" href="{{asset('assets/img/favicon.png')}}">
     </head>
     <body class="d-flex flex-column h-100 h-sbar" > 
 

@@ -31,6 +31,17 @@
               <i class="bi bi-circle"></i><span>Service User Survey</span>
             </a>
           </li>
+          <li>
+            <a href="{{ url('/serviceUser/show_complaints')}}">
+              <i class="bi bi-circle"></i><span> Complaints feedback</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url('/serviceUser/show_compliments')}}">
+              <i class="bi bi-circle"></i><span> Compliments  Slip </span>
+            </a>
+          </li>
+
         </ul>
       </li>
       {{-- End Service user Nav --}}

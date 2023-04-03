@@ -38,7 +38,8 @@ function ready(callbackFunc) {
     //remove primary bclass add rey class and make  disabled  
     const prevBtn = document.getElementById("prevBtnID");
     const nextBtn = document.getElementById("nextBtnID");
-    
+    const submitBtn = document.getElementById("submitBtnID");
+
     let prevBtnDisabled=function(){
         prevBtn.disabled = true; // disabling it by default
         prevBtn.classList.remove("btn-primary");
@@ -49,6 +50,12 @@ function ready(callbackFunc) {
         nextBtn.disabled = true; // disabling it by default
         nextBtn.classList.remove("btn-primary");
         nextBtn.classList.add("btn-secondary");
+    }
+    
+    let submitBtnDisabled=function(){
+        submitBtn.disabled = true; // disabling it by default
+        submitBtn.classList.remove("btn-primary");
+        submitBtn.classList.add("btn-secondary");
     }
 
     let prevBtnEnabled=function(){
@@ -62,7 +69,12 @@ function ready(callbackFunc) {
         nextBtn.classList.add("btn-primary");
         nextBtn.classList.remove("btn-secondary");
     }
-
+    
+    let submitBtnEnabled=function(){
+        submitBtn.disabled = false; // disabling it by default
+        submitBtn.classList.add("btn-primary");
+        submitBtn.classList.remove("btn-secondary");
+    }
     let slideDown = (target, duration=500) => {
         if(window.getComputedStyle(target).display == "block") return 0;
 
@@ -222,14 +234,16 @@ function ready(callbackFunc) {
     
     submitFunc=function(){
          //const token = document.head.querySelector("[name~=csrf-token][content]").content;
-        var post_data={
+        submitBtnDisabled() 
+         var post_data={
             userID:userID,
             responses:feedbackObj,
             quesName:quesNameArray,
             quesTypeID:quesTypeIDArray,
-            quesOptions:quesOptionsArray
+            quesOptions:quesOptionsArray,
+            responseTypeID:responseTypeID
         }
-        fetch(serviceUser_saveFeedbackURL, {
+        fetch(user_saveFeedbackURL, {
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json, text-plain, */*",
@@ -241,10 +255,12 @@ function ready(callbackFunc) {
             body: JSON.stringify(post_data)
         })
         .then((data) => {
-           // alert(JSON.stringify(data))
-           window.location.replace(serviceUser_successSaveURL);
+            //alert(JSON.stringify(serviceUser_successSaveURL))
+            window.location.replace(user_successSaveURL);
+            submitBtnEnabled() 
         })
         .catch(function(error) {
+            submitBtnEnabled() 
             alert(error);
         });
     }
