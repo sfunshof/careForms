@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Client;
+
 use ClickSend;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
