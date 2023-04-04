@@ -1,8 +1,5 @@
 <?php
 return [
-    'callTimesArray' => [ "07:00", "08:00", "09:00","10:00", "11:00", "12:00","13:00", "14:00",
-                   "15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","06:00"],
-
-    'callMinutesArray' => ["00", "15", "30", "45"],
-    'daysOfTheWeekArray'=> ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+    'click_send_username' => env(CLICK_SEND_USERNAME, 'y@email.com'),
+    'click_send_password' => env(CLICK_SEND_PASSWORD, 'ABC')
 ];   

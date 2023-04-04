@@ -12,42 +12,59 @@ class mobileController extends Controller
     //
     public function index(Request $request){
         //get the service user details
-        $userID = $request->id;
-        $uniqueNo=$request->uniqueNo;
-        $responseTypeID=$request->responseTypeID; //s=1 serviceU
-        
-        // This is for survey for service users/
-        //blank company details
-        View::share('mobile_companyName', '');
-        $unknown="Unknown Campaign";
+        //http://west/4ew2hy54xs7
 
-        //Get the user details 
+        View::share('mobile_companyName', '');
+        $campaign='Unknown Campaign';
+        $unique_value=$request->unique_value;
+        
+        //ResponseTypeID is valid; what is the csmpaign name
+        $resp = DB::table("responsetable")
+            ->select('*')
+            ->where(['unique_value'=>$unique_value])
+            ->whereNull('date_received')
+            ->get();
+        //If combination not found after tampering with Service user not found
+        if (!count($resp)){
+            return view('mobile.pages.userNotFound', ['userType' =>'User', 'username'=>'', 'campaign'=>$campaign] );
+        }
+    
+
+        //Hey we found a user, check if it has nt yet been submitted
+        if (!is_null($resp[0]->date_received)){
+            return view('mobile.pages.userAlreadyDone' , ['userType' => 'User', 'username'=>'', 'campaign' => 'Submitted']);
+        }
+        //Expired -- implement later
+        // if ($resp[0]->date_posted, now(()) > 30)
+        
+        //*** Everything OK fire On */
+        //Now get the details
+        $userTable='';
+        $responseTypeID=$resp[0]->responseTypeID;
+        $campaign='';
         if ($responseTypeID==1){
             $userTable="serviceuserdetailstable";
             $userType="ServiceUser";
             $quesFormTable="serviceuserformtable";
             $quesFormPage="mobile.pages.serviceUserHome";
-        }else{ //last point of call responseType not defined as 1,2,3,4,5,6
-            return view('mobile.pages.userNotFound', ['userType' =>'User', 'username'=>'','campaign' => $unknown] );
         }  
         //ResponseTypeID is valid; what is the csmpaign name
-        $resp = DB::table("responsetypetable")
-            ->select('*')
-            ->where(['responseTypeiD'=>$responseTypeID])
-            ->get();
-        if (count($resp)) {
-            $campaign=$resp[0]->responseType;
+        $respX = DB::table("responsetypetable")
+         ->select('*')
+         ->where(['responseTypeiD'=>$responseTypeID])
+         ->get();
+        if (count($respX)) {
+             $campaign=$respX[0]->responseType;
         }   
        
         $user = DB::table($userTable)
-            ->select('*')
-            ->where(['useriD'=>$userID, 'uniqueNo' => $uniqueNo])
-            ->get();
-        //If combination not found after tampering with Service user not found
+        ->select('*')
+        ->where(['useriD'=>$resp[0]->userID])
+        ->get();
+        //If db is hacked or corrupted
         if (!count($user)){
-            return view('mobile.pages.userNotFound', ['userType' => $userType, 'username'=>'', 'campaign'=>$campaign] );
+            return view('mobile.pages.userNotFound', ['userType' => 'User ', 'username'=>'', 'campaign'=>''] );
         }
-      
         //Mr John Doe of 23 London Rd, Redhill
         $extra="";
         if ($responseTypeID==1){
@@ -60,20 +77,14 @@ class mobileController extends Controller
         if ($selectCompany){
             View::share('mobile_companyName', $selectCompany);
         }
-        
-        //Check if it is ready for the survey,feedback, complaits etc : smsl sent out
-        $userResponse = DB::select('select * from  responsetable where userID = ?  and responseTypeID=?   and date_received  is null and sentCount > 0', [$userID, $responseTypeID]);
-        if (!$userResponse) {
-            return view('mobile.pages.userAlreadyDone' , ['userType' => $userType, 'username'=>$fullusername, 'campaign' => $campaign]);
-        }
-                    
+                
         //Get the questions details
         $quesType = DB::select('select * from questable');
 
         //Get the service users question form
         $quesForm=DB::select('select * from ' . $quesFormTable);
         return view($quesFormPage, ['username' => $fullusername,'quesType' =>$quesType,
-           'quesForm' => $quesForm ,  'quesCount'=>count($quesForm), 'userID' => $userID, 
+           'quesForm' => $quesForm ,  'quesCount'=>count($quesForm), 'userID' => $resp[0]->userID, 
            'campaign' => $campaign, 'responseTypeID' => $responseTypeID ]);
     }
 

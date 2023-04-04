@@ -6,8 +6,7 @@
    <div class="container pb-3 border-top">
         <div class="alert alert-danger mt-3" role="alert" id="errMsgID">
             Error: You cannot proceed because the {{ $userType }} information needed: <br>
-            Has not yet been prepared <br>
-            Has already been submitted <br>
+            has alredy expired
          </div>
     </div> 
      

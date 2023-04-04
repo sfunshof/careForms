@@ -44,7 +44,7 @@ function ready(callbackFunc) {
     serviceUserSelectMonthFunc=function(){
         alert("tesr")
     }
-    surveyServiceuserFunc=function(userID, statusID, tel, uniqueNo){
+    surveyServiceuserFunc=function(userID, statusID,  responseTypeID, unique_value, sentCount,   tel){
       //statusID 1 Created not sent  => Send
       //statusID 2 Sent not received => Re-send
       //statusID 3 Received => view
@@ -53,15 +53,25 @@ function ready(callbackFunc) {
       spinner.removeAttribute('hidden');
 
       let URLpath=serviceUser_sendSMSURL;
+      
+      
       if (statusID==3){
           URLpath=serviceUser_viewResponse;
       }
+      //check if it has already been sent 2wise
+      if ((statusID==2) && (sentCount==2)){
+          let smsMsg= smsPreText + URLbase + "/" + unique_value
+          alert(smsMsg);
+          return 0;
+      }    
+      
+          
       
       let post_data={
       userID:userID,
       statusID:statusID,
       tel:tel,
-      uniqueNo:uniqueNo
+      responseTypeID:responseTypeID
     }
     fetch(URLpath, {
       headers: {
@@ -76,10 +86,9 @@ function ready(callbackFunc) {
   })
   .then((data) => {
       spinner.setAttribute('hidden', '');
-      //alert(JSON.stringify(data))
-      window.location.reload();
-      
-      //alert("Sent");
+      // alert(JSON.stringify(post_data))
+       window.location.reload();
+       alert("Sent");
   })
   .catch(function(error) {
       alert(error);

@@ -60,13 +60,13 @@
                                 $userAddressArray=[];
                                 $userTelArray=[];
                                 $userProxyArray=[];
-                                $uniqueNoArray=[];
+                                $preText=$company_settings[0]->surveyServiceUserText;
+                           
                                 foreach($usersDetails as $userDetails){
                                     $userNameArray[$userDetails->userID]=$userDetails->title . ' ' . $userDetails->firstName . ' ' . $userDetails->lastName;
                                     $userAddressArray[$userDetails->userID]=$userDetails->address;
                                     $userTelArray[$userDetails->userID]=$userDetails->tel;
                                     $userProxyArray[$userDetails->userID]=$userDetails->proxy;
-                                    $uniqueNoArray[$userDetails->userID]=$userDetails->uniqueNo;
                                 }
                             ?>
                             <tbody>
@@ -107,7 +107,7 @@
                                             <span class="{{$proxyColor}}">  {{$userTelArray[$response->userID]}} </span>   
                                         </td>
                                         <td> 
-                                           <span style="cursor:pointer" onClick="surveyServiceuserFunc({{$response->userID}},{{$statusID}},'{{$userTelArray[$response->userID]}}', '{{$uniqueNoArray[$response->userID]}}' )">   {{$status}}  <i class="{{$btn_icon}}  {{$btn_color}}"></i> </span>
+                                           <span style="cursor:pointer" onClick="surveyServiceuserFunc({{$response->userID}},{{$statusID}}, {{$response->responseTypeID}},   '{{$response->unique_value}}',   {{$response->sentCount}},    '{{$userTelArray[$response->userID]}}' )">   {{$status}}  <i class="{{$btn_icon}}  {{$btn_color}}"></i> </span>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -120,7 +120,10 @@
         </div>  
         <script>
             let token = "{{ csrf_token() }}";
-            let serviceUser_sendSMSURL= "{{ url('utility/serviceuser_sendsms')}}"; 
+            let serviceUser_sendSMSURL= "{{ url('utility/user_sendsms')}}"; 
+            let URLbase="{{ url('')}}";
+            let smsPreText= @json($preText);
+          
             let serviceUser_viewResponse= "{{ url('utility/serviceuser_viewresponse')}}"; 
         </script>
 
