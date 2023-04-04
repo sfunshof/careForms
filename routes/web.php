@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Spatie\Honeypot\ProtectAgainstSpam;
-use App\Http\Controllers\serviceUserController;
+use App\Http\Controllers\mobileController;
 use App\Http\Controllers\backofficeController;
 use App\Http\Controllers\utilityController;
  
@@ -22,9 +22,9 @@ Route::get('/', function () {
 });
 
 
-Route::get('{responseTypeID}/{uniqueNo}/{id}', [serviceUserController::class, 'index'])->where(['id'=>'[0-9]+', 'responseTypeID'=>'[0-9]+' ]);
-Route::post("user/save_feedback", [serviceUserController::class, 'save_userFeedback']);
-Route::get("user/successSaved/{companyID}", [serviceUserController::class, 'successSaved']);
+Route::get('{responseTypeID}/{uniqueNo}/{id}', [mobileController::class, 'index'])->where(['id'=>'[0-9]+', 'responseTypeID'=>'[0-9]+' ]);
+Route::post("user/save_feedback", [mobileController::class, 'save_userFeedback']);
+Route::get("user/successSaved/{companyID}", [mobileController::class, 'successSaved']);
 
 
 Route::get("dashboard", [backofficeController::class, 'show_dashboard']);

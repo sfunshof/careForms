@@ -75,7 +75,6 @@ function ready(callbackFunc) {
       body: JSON.stringify(post_data)
   })
   .then((data) => {
-      alert(tel + ' gg ' +  uniqueNo)
       spinner.setAttribute('hidden', '');
       //alert(JSON.stringify(data))
       window.location.reload();

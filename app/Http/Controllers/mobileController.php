@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\View;
 
-class serviceUserController extends Controller
+class mobileController extends Controller
 {
     //
     public function index(Request $request){
