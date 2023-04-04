@@ -107,7 +107,7 @@
                                             <span class="{{$proxyColor}}">  {{$userTelArray[$response->userID]}} </span>   
                                         </td>
                                         <td> 
-                                           <span style="cursor:pointer" onClick="surveyServiceuserFunc({{$response->userID}},{{$statusID}},{{$userTelArray[$response->userID]}}, {{$uniqueNoArray[$response->userID]}} )">   {{$status}}  <i class="{{$btn_icon}}  {{$btn_color}}"></i> </span>
+                                           <span style="cursor:pointer" onClick="surveyServiceuserFunc({{$response->userID}},{{$statusID}},'{{$userTelArray[$response->userID]}}', '{{$uniqueNoArray[$response->userID]}}' )">   {{$status}}  <i class="{{$btn_icon}}  {{$btn_color}}"></i> </span>
                                         </td>
                                     </tr>
                                 @endforeach

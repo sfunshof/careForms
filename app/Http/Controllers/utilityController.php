@@ -72,9 +72,9 @@ class utilityController extends Controller
             ->where([
                     ['date_received', NULL],
                     ['userID', $userID],
-                    ['responseTypeID', 1],
-                    ['sendCount >', 0]
-                    ])
+                    ['responseTypeID', 1]
+                ])
+            ->whereIn('sentCount', [1,2])    
             ->update([
                 'date_posted' => Carbon::now(),
                 'sentCount' => 2
