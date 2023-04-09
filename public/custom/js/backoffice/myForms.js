@@ -64,6 +64,8 @@ ready(function() {
                 text +=  quesName + "<br>";  
                 ulResponse= "<ul>"
                 options="" ;
+                alert(JSON.stringify(quesOptionsArray));
+                alert(JSON.stringify(quesOptionsArray[pageCount]));
                 optionsArray=JSON.parse(quesOptionsArray[pageCount])
                 let bold1='';
                 let bold2="";
