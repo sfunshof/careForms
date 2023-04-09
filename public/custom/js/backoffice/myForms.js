@@ -64,14 +64,13 @@ ready(function() {
                 text +=  quesName + "<br>";  
                 ulResponse= "<ul>"
                 options="" ;
-                alert(JSON.stringify(quesOptionsArray));
-                alert(JSON.stringify(quesOptionsArray[pageCount]));
                 optionsArray=JSON.parse(quesOptionsArray[pageCount])
                 let bold1='';
                 let bold2="";
                 if (item==2){ //radio
                   bold1='<strong>';
                   bold2="</strong>";
+                  alert(JSON.stringify(optionsArray) + ' === ' + pageCount)
                   for (let i=0; i < optionsArray.length; i++ ){
                      options += "<li> " +  optionsArray[i] + " </li>"
                   }
