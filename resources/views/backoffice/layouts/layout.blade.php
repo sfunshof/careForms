@@ -64,9 +64,13 @@
    <div hidden  id="spinner"></div> 
    {{--  End of Spinner  --}}
 
-  <!-- ======= Footer ======= -->
+  {{--  Modal --}}
+      @include('backoffice.inc.modal')
+  {{--  End of Modal --}}
+
+  {{-- ======= Footer ======= --}}
        @include('backoffice.inc.footer') 
-  <!-- End Footer -->
+  {{-- End Footer --}}
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 

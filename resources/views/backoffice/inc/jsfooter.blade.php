@@ -8,6 +8,8 @@
   <script src="{{asset('assets/vendor/php-email-form/validate.js')}}"></script>
 
   {{--  Custom Js  files --}}
+  <script src="{{asset('custom/js/backoffice/myModal.js')}}"></script>
+  <script src="{{asset('custom/js/backoffice/myForms.js')}}"></script>
   <script src="{{asset('custom/js/backoffice/employee.js')}}"></script>
   <script src="{{asset('custom/js/backoffice/serviceuser.js')}}"></script>
 
@@ -15,3 +17,4 @@
   <script src="{{asset('assets/js/main.js')}}"></script>
   
 
+   

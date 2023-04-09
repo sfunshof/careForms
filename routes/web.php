@@ -26,17 +26,20 @@ Route::get('{unique_value}', [mobileController::class, 'index']);
 Route::post("user/save_feedback", [mobileController::class, 'save_userFeedback']);
 Route::get("user/successSaved/{companyID}", [mobileController::class, 'successSaved']);
 
-
 Route::get("backoffice/dashboard", [backofficeController::class, 'show_dashboard']);
+Route::get("backoffice/companyprofile", [backofficeController::class, 'update_companyProfile']);
+
 Route::get("serviceUser/addnew", [backofficeController::class, 'addnew_serviceUser']);
 Route::get("serviceUser/update", [backofficeController::class, 'update_serviceUser']);
 Route::get("serviceUser/show_surveyfeedback", [backofficeController::class, 'show_surveyFeedback_serviceUser']);
+Route::get("user/view_feedback/{userID}/{unique_value}/{responseTypeID}", [backofficeController::class, 'view_feedback'])->where(['userID'=>'[0-9]+',  'responseTypeID'=>'[0-9]+']);
+
 Route::get("serviceUser/show_complaints", [backofficeController::class, 'show_complaints_serviceUser']);
 Route::get("serviceUser/show_compliments", [backofficeController::class, 'show_compliments_serviceUser']);
 
 Route::get("buildforms/serviceUserFeedback", [backofficeController::class, 'build_serviceUserFeedback']);
 Route::get("buildforms/employeeFeedback", [backofficeController::class, 'build_employeeFeedback']);
-Route::get("companyprofile", [backofficeController::class, 'update_companyProfile']);
+
 
 Route::post("utility/user_sendsms", [utilityController::class, 'user_sendSMS']);
 Route::post("utility/serviceuser_viewresponse", [utilityController::class, 'serviceuser_viewResponse']);

@@ -48,6 +48,85 @@ class backofficeController extends Controller
         return view('backoffice.pages.show_surveyFeedback_serviceUser',
               ['responseStatus' => $responseStatus, 'usersDetails'=> $usersDetails]);
     }
+    
+    private function get_serviceUser_details($userID){
+         $user = DB::table("serviceuserdetailstable")
+         ->select('*')
+         ->where(['userID'=>$userID])
+         ->get();
+         return $user;   
+    }
+    private function get_feedbackResponses($userID, $unique_value, $responseTypeID){
+        $resp = DB::table("responsetable")
+        ->select('*')
+        ->where(['userID'=>$userID, 'unique_value'=> $unique_value, 'responseTypeID'=>$responseTypeID ])
+        ->get();
+        return $resp;   
+    }
+    
+    private function get_responseType($responseTypeID){
+        $resp = DB::table("responsetypetable")
+        ->select('*')
+        ->where(['responseTypeID'=>$responseTypeID ])
+        ->get();
+        return $resp;
+    }
+    
+
+
+    public function view_feedback(Request $req){
+       
+        $userID= $req->userID;
+        $unique_value=$req->unique_value;
+        $responseTypeID=$req->responseTypeID;
+        
+        $resp=$this->get_feedbackResponses($userID, $unique_value, $responseTypeID);
+        $date_posted=$resp[0]->date_posted;
+        $date_received=$resp[0]->date_received;
+        $response=[];
+        $quesName=[];
+        $quesTypeID=[];
+        $quesOptions=[];
+        $fullName='';
+        $companyName=$this->company_settings[0]->companyName;
+        $responseType='';
+        if ($resp){
+            $response=$resp[0]->responses;
+            $quesName=$resp[0]->quesName;
+            $quesTypeID=$resp[0]->quesTypeID;
+            $quesOptions=$resp[0]->quesOptions;
+        }
+        //Lets get the details
+        if ($responseTypeID==1){
+           //Get the service user name
+           $user= $this->get_serviceUser_details($userID);
+           if ($user){
+                $fullName=$user[0]->title . ' ' . $user[0]->firstName . ' ' . $user[0]->lastName;
+            }
+        }
+        //Response type
+        $resp=$this->get_responseType($responseTypeID);
+        $respType='';
+        if ($resp){
+            $respType=$resp[0]->responseType;
+        }
+         
+
+                
+        $result['fullName']=$fullName . "<br> ";
+        $result['companyName']=$companyName; 
+        $result['datePosted']=" Date Sent: " . $date_posted;
+        $result['dateReceived']=" Date Received: " . $date_received;
+        $result['response']=$response;
+        $result['quesName']=$quesName;
+        $result['quesTypeID']=$quesTypeID;
+        $result['quesOptions']=$quesOptions;
+        $result['respType']=' ' . $respType . '<br>';
+
+
+        return response()->json($result); 
+    }    
+
 
     
     public function show_compliments_serviceUser(){

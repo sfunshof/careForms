@@ -60,8 +60,9 @@
                                 $userAddressArray=[];
                                 $userTelArray=[];
                                 $userProxyArray=[];
-                                $preText=$company_settings[0]->surveyServiceUserText;
-                           
+                                $company_setting=$company_settings[0]; 
+                                $preText=$company_setting->surveyServiceUserText;
+
                                 foreach($usersDetails as $userDetails){
                                     $userNameArray[$userDetails->userID]=$userDetails->title . ' ' . $userDetails->firstName . ' ' . $userDetails->lastName;
                                     $userAddressArray[$userDetails->userID]=$userDetails->address;
@@ -124,7 +125,7 @@
             let URLbase="{{ url('')}}";
             let smsPreText= @json($preText);
           
-            let serviceUser_viewResponse= "{{ url('utility/serviceuser_viewresponse')}}"; 
+            let user_viewURL= "{{ url('user/view_feedback')}}"; 
         </script>
 
     @endsection    
