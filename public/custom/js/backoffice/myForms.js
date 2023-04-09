@@ -47,20 +47,26 @@ ready(function() {
         let quesNamesArray=JSON.parse(data.quesName);     //How many How can
         let quesTypeIDArray=JSON.parse(data.quesTypeID);  //1,2 0,0, 2
         let quesOptionsArray=JSON.parse(data.quesOptions); //Yes, No
-        let responseArray=JSON.parse(data.response);
-        //alert(JSON.stringify(responseArray));
-        //return 0;
-        //alert(quesNamesArray.length + ' ' + quesTypeIDArray.length + ' ' + quesOptionsArray.length )
+        let responseTemp=JSON.parse(data.response); //{1:"one", 2:"two"} or [0ne, two]
+        
+        //convert object to array
+        let responseArray=[]
+        if (typeof responseTemp === 'object'){
+            responseArray=Object.values(responseTemp); 
+        }else{
+            responseArray=responseTemp;   
+        }
+                
         let pageCount=0
         let quesName=""
         let ulResponse="";
         let options=""
         let optionsArray=[];
         quesTypeIDArray.forEach(myFunction);
+        alert(JSON.stringify(responseArray))
         function myFunction(item, index) {
             if (item > 0){
-                pageCount++
-                quesName= pageCount + ' . ' + quesNamesArray[index]
+                quesName= (pageCount +1)     + ' . ' + quesNamesArray[index]
                 text +=  quesName + "<br>";  
                 ulResponse= "<ul>"
                 options="" ;
@@ -70,13 +76,14 @@ ready(function() {
                 if (item==2){ //radio
                   bold1='<strong>';
                   bold2="</strong>";
-                  alert(JSON.stringify(optionsArray) + ' === ' + pageCount)
-                  for (let i=0; i < optionsArray.length; i++ ){
-                     options += "<li> " +  optionsArray[i] + " </li>"
-                  }
+                  //alert(JSON.stringify(optionsArray) + ' === ' + pageCount)
+                  //for (let i=0; i < optionsArray.length; i++ ){
+                  //   options += "<li> " +  optionsArray[i] + " </li>"
+                  //}
                 } 
                 ulResponse += bold1 + responseArray[pageCount]  + bold2
                 text += options + ulResponse + "</ul>"
+                pageCount++
             }else{
               text +=  quesNamesArray[index] + "<br>"  
             }
