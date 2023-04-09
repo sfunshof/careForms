@@ -74,12 +74,12 @@ ready(function() {
                 let bold1='';
                 let bold2="";
                 if (item==2){ //radio
-                  bold1='<strong>';
-                  bold2="</strong>";
-                  //alert(JSON.stringify(optionsArray) + ' === ' + pageCount)
-                  //for (let i=0; i < optionsArray.length; i++ ){
-                  //   options += "<li> " +  optionsArray[i] + " </li>"
-                  //}
+                    bold1='<strong>';
+                    bold2="</strong>";
+                    //alert(JSON.stringify(optionsArray) + ' === ' + pageCount)
+                    for (let i=0; i < optionsArray.length; i++ ){
+                       options += "<li> " +  optionsArray[i] + " </li>"
+                    }
                 } 
                 ulResponse += bold1 + responseArray[pageCount]  + bold2
                 text += options + ulResponse + "</ul>"
