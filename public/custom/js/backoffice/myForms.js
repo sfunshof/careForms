@@ -19,7 +19,33 @@ function ready(callbackFunc) {
       });
     }
 }
-  
+
+  // ** FADE OUT FUNCTION **
+    let  fadeOut = function(el) {
+    el.style.opacity = 1;
+    (function fade() {
+        if ((el.style.opacity -= .1) < 0) {
+            el.style.display = "none";
+        } else {
+            requestAnimationFrame(fade);
+        }
+    })();
+};
+
+// ** FADE IN FUNCTION **
+    let  fadeIn = function(el, display) {
+    el.style.opacity = 0;
+    el.style.display = display || "block";
+    (function fade() {
+        var val = parseFloat(el.style.opacity);
+        if (!((val += .1) > 1)) {
+            el.style.opacity = val;
+            requestAnimationFrame(fade);
+        }
+    })();
+};
+
+
 ready(function() {
     //survey feedback table
     extractData_thenDisplay=function(url){
@@ -63,23 +89,24 @@ ready(function() {
         let options=""
         let optionsArray=[];
         quesTypeIDArray.forEach(myFunction);
-        alert(JSON.stringify(responseArray))
+        //alert(JSON.stringify(quesOptionsArray))
         function myFunction(item, index) {
             if (item > 0){
                 quesName= (pageCount +1)     + ' . ' + quesNamesArray[index]
                 text +=  quesName + "<br>";  
                 ulResponse= "<ul>"
                 options="" ;
-                optionsArray=JSON.parse(quesOptionsArray[pageCount])
+                optionsArray=JSON.parse(quesOptionsArray[index]) 
                 let bold1='';
                 let bold2="";
                 if (item==2){ //radio
                     bold1='<strong>';
                     bold2="</strong>";
-                    //alert(JSON.stringify(optionsArray) + ' === ' + pageCount)
+                    //alert("item = " + item + " index= " + index)
+                    //alert(JSON.stringify(optionsArray) + ' === ' + pageCount  +  ' item= '  + item)
                     for (let i=0; i < optionsArray.length; i++ ){
-                       options += "<li> " +  optionsArray[i] + " </li>"
-                    }
+                      options += "<li> " +  optionsArray[i] + " </li>"
+                   }
                 } 
                 ulResponse += bold1 + responseArray[pageCount]  + bold2
                 text += options + ulResponse + "</ul>"
@@ -135,9 +162,11 @@ ready(function() {
         .then((data) => {
             spinner.setAttribute('hidden', '');
             // alert(JSON.stringify(post_data))
-            window.location.reload();
-            alert("Sent");
-        })
+            alertInfoID.innerHTML="Message successfully sent";
+            fadeIn(alertInfoID);
+            let  myTimeout = setTimeout(fadeOut(alertInfoID), 5000);
+            if (myTimeout)  window.location.reload();
+         })
         .catch(function(error) {
             alert(error);
             spinner.setAttribute('hidden', '');

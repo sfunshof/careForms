@@ -55,16 +55,20 @@
         {{-- End Page Title --}}
        
         {{--  Page Contents --}}
-        @yield('contents')
+        @yield('contents'),
         {{--  End Page Contents --}}
     
   </main><!-- End #main -->
 
-   {{--  Spinner for ajax calls --}}
+  {{-- Alerts --}} 
+      @include('backoffice.inc.alerts')
+  {{--  --}}    
+
+  {{--  Spinner for ajax calls --}}
    <div hidden  id="spinner"></div> 
    {{--  End of Spinner  --}}
-
-  {{--  Modal --}}
+   
+   {{--  Modal --}}
       @include('backoffice.inc.modal')
   {{--  End of Modal --}}
 

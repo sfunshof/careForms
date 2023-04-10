@@ -36,10 +36,12 @@ ready(function() {
     }  
         
     serviceUserSelectYearFunc=function(){
-        alert("best")
+        let v=serviceUserSelectYearID.options[serviceUserSelectYearID.selectedIndex].value
+        alert(v) 
     }
     serviceUserSelectMonthFunc=function(){
-        alert("tesr")
+        let v=serviceUserSelectMonthID.options[serviceUserSelectMonthID.selectedIndex].value
+        alert(v) 
     }
     surveyServiceuserFunc=function(userID, statusID,  responseTypeID, unique_value, sentCount,   tel){
         //statusID 1 Created not sent  => Send

@@ -19,4 +19,6 @@ const closeBtn= '<button type="button" class="btn btn-danger" data-bs-dismiss="m
 
 //*** borrowed space for spinner */
 const spinner = document.getElementById("spinner");
+const alertDangerID = document.getElementById("alertDangerID");
+const alertInfoID = document.getElementById("alertInfoID");
 ;

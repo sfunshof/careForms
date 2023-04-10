@@ -36,7 +36,7 @@
                                     $selected_year = $year_end; // current Year
                                     for ($i_year = $year_start; $i_year <= $year_end; $i_year++) {
                                         $selected = $selected_year == $i_year ? ' selected' : '';
-                                        echo '<option value="'.$i_year.'"'.$selected.'>'.$i_year.'</option>'."\n";
+                                        echo '<option value="'. $i_year  .'"'.$selected.'>'.$i_year.'</option>'."\n";
                                     }
                                ?>
 
@@ -126,6 +126,9 @@
             let smsPreText= @json($preText);
           
             let user_viewURL= "{{ url('user/view_feedback')}}"; 
+                
+            const serviceUserSelectYearID    = document.getElementById("serviceUserSelectYearID"); 
+            const serviceUserSelectMonthID  = document.getElementById("serviceUserSelectMonthID"); 
         </script>
 
     @endsection    
