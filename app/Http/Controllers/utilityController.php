@@ -35,7 +35,7 @@ class utilityController extends Controller
         $sms_messages->setMessages([$msg]);
 
         try {
-               $result = $apiInstance->smsSendPost($sms_messages);
+               //$result = $apiInstance->smsSendPost($sms_messages);
             
             //print_r($result);
             return 1;
@@ -53,6 +53,7 @@ class utilityController extends Controller
         $userID=$req->userID;
         $statusID=$req->statusID;
         $responseTypeID=$req->responseTypeID;
+        $date_of_interest=$req->date_of_interest;
 
         //if it is the first time, statusID==1 we need to generate a unique ID
         $unique_value=substr(md5(uniqid(rand(), true)),0,7);
@@ -95,6 +96,7 @@ class utilityController extends Controller
                 ->update([
                     'date_posted' => Carbon::now(),
                     'sentCount' => 1,
+                    'date_of_interest' =>$date_of_interest,
                     'unique_value' => $unique_value
                 ]);
             }elseif (($result==1)&& ($statusID==2)) { //snd time res-send

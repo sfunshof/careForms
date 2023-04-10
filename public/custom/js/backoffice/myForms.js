@@ -141,11 +141,12 @@ ready(function() {
         modalFooter.innerHTML= copyBtn +   closeBtn
         modalBtnID.click()
     }
-    sms_toUsers=function(userID,statusID,tel,responseTypeID,URLpath){
+    sms_toUsers=function(userID,statusID,tel,responseTypeID,URLpath,date_of_interest){
         let post_data={
             userID:userID,
             statusID:statusID,
             tel:tel,
+            date_of_interest:date_of_interest,
             responseTypeID:responseTypeID
         }
         fetch(URLpath, {

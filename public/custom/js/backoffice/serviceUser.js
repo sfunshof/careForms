@@ -34,7 +34,10 @@ ready(function() {
             }
         })
     }  
-        
+    
+    let year =serviceUserSelectYearID.options[serviceUserSelectYearID.selectedIndex].value
+    let month=serviceUserSelectMonthID.options[serviceUserSelectMonthID.selectedIndex].text
+    
     serviceUserSelectYearFunc=function(){
         let v=serviceUserSelectYearID.options[serviceUserSelectYearID.selectedIndex].value
         alert(v) 
@@ -68,9 +71,10 @@ ready(function() {
             too_manySMS(smsMsg,tel)
             return 0;
         }    
-      
+        
         //Send SMS to the clients
-        sms_toUsers(userID,statusID,tel,responseTypeID,URLpath)
+        let date_of_interest= month + ' ' + year   
+        sms_toUsers(userID,statusID,tel,responseTypeID,URLpath,date_of_interest)
         
     }
 

@@ -26,13 +26,13 @@ class mobileController extends Controller
             ->get();
         //If combination not found after tampering with Service user not found
         if (!count($resp)){
-            return view('mobile.pages.userNotFound', ['userType' =>'User', 'username'=>'', 'campaign'=>$campaign] );
+            return view('mobile.pages.userNotFound', ['userType' =>'User', 'username'=>'', 'campaign'=>$campaign, 'date_of_interest'=>''] );
         }
     
 
         //Hey we found a user, check if it has nt yet been submitted
         if (!is_null($resp[0]->date_received)){
-            return view('mobile.pages.userAlreadyDone' , ['userType' => 'User', 'username'=>'', 'campaign' => 'Submitted']);
+            return view('mobile.pages.userAlreadyDone' , ['userType' => 'User', 'username'=>'', 'campaign' => 'Submitted' , 'date_of_interest'=>'' ]);
         }
         //Expired -- implement later
         // if ($resp[0]->date_posted, now(()) > 30)
@@ -63,7 +63,7 @@ class mobileController extends Controller
         ->get();
         //If db is hacked or corrupted
         if (!count($user)){
-            return view('mobile.pages.userNotFound', ['userType' => 'User ', 'username'=>'', 'campaign'=>''] );
+            return view('mobile.pages.userNotFound', ['userType' => 'User ', 'username'=>'', 'campaign'=>'', 'date_of_interest'=>''] );
         }
         //Mr John Doe of 23 London Rd, Redhill
         $extra="";
@@ -85,7 +85,7 @@ class mobileController extends Controller
         $quesForm=DB::select('select * from ' . $quesFormTable);
         return view($quesFormPage, ['username' => $fullusername,'quesType' =>$quesType,
            'quesForm' => $quesForm ,  'quesCount'=>count($quesForm), 'userID' => $resp[0]->userID, 
-           'campaign' => $campaign, 'responseTypeID' => $responseTypeID ]);
+           'campaign' => $campaign, 'responseTypeID' => $responseTypeID , 'date_of_interest' => $resp[0]->date_of_interest ]);
     }
 
     public function save_userFeedback(Request $request){
@@ -122,7 +122,7 @@ class mobileController extends Controller
        return view('mobile.pages.successSaved',
          ['userType' => 'Customer', 'campaign' => '',
          'mobile_companyName' => $mobile_companyName,
-         'username' => "Information Submitted"] );
+         'username' => "Information Submitted", 'date_of_interest'=>''] );
     }   
 
 }
