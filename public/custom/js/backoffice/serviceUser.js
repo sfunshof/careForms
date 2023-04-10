@@ -37,14 +37,14 @@ ready(function() {
     
     let year =serviceUserSelectYearID.options[serviceUserSelectYearID.selectedIndex].value
     let month=serviceUserSelectMonthID.options[serviceUserSelectMonthID.selectedIndex].text
-    
+     
     serviceUserSelectYearFunc=function(){
-        let v=serviceUserSelectYearID.options[serviceUserSelectYearID.selectedIndex].value
-        alert(v) 
+        year=serviceUserSelectYearID.options[serviceUserSelectYearID.selectedIndex].value
+       //alert(v) 
     }
     serviceUserSelectMonthFunc=function(){
-        let v=serviceUserSelectMonthID.options[serviceUserSelectMonthID.selectedIndex].value
-        alert(v) 
+        month=serviceUserSelectMonthID.options[serviceUserSelectMonthID.selectedIndex].text
+        //alert(v) 
     }
     surveyServiceuserFunc=function(userID, statusID,  responseTypeID, unique_value, sentCount,   tel){
         //statusID 1 Created not sent  => Send
@@ -52,7 +52,7 @@ ready(function() {
         //statusID 3 Received => view
         //const token = document.head.querySelector("[name~=csrf-token][content]").content;
       
-        spinner.removeAttribute('hidden');
+       // spinner.removeAttribute('hidden');
         let URLpath=serviceUser_sendSMSURL;
 
         //View 
@@ -74,6 +74,8 @@ ready(function() {
         
         //Send SMS to the clients
         let date_of_interest= month + ' ' + year   
+        //alert(date_of_interest)
+        //return 0;
         sms_toUsers(userID,statusID,tel,responseTypeID,URLpath,date_of_interest)
         
     }
