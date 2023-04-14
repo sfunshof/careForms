@@ -98,6 +98,7 @@
             let quesNameArray=@json($quesNameArray);      // how, What, how, ...
             let quesOptionsArray=@json($quesOptionsArray); //[good,better,best], [ok,fair,not], [yes,no]
             
+            let unique_value= "{{ $unique_value}}";
             let responseTypeID={{$responseTypeID}};
             let userID={{ $userID }};
             let user_saveFeedbackURL= "{{ url('user/save_feedback')}}"; 

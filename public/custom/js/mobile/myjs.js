@@ -233,38 +233,50 @@ function ready(callbackFunc) {
     }
     
     submitFunc=function(){
-         //const token = document.head.querySelector("[name~=csrf-token][content]").content;
-        submitBtnDisabled() 
-         var post_data={
-            userID:userID,
-            responses:feedbackObj,
-            quesName:quesNameArray,
-            quesTypeID:quesTypeIDArray,
-            quesOptions:quesOptionsArray,
-            responseTypeID:responseTypeID
-        }
-        fetch(user_saveFeedbackURL, {
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json, text-plain, */*",
-                "X-Requested-With": "XMLHttpRequest",
-                "X-CSRF-TOKEN": token
-                },
-            method: 'Post',
-            credentials: "same-origin",
-            body: JSON.stringify(post_data)
-        })
-        .then((data) => {
-            //alert(JSON.stringify(serviceUser_successSaveURL))
-            window.location.replace(user_successSaveURL);
-            submitBtnEnabled() 
-        })
-        .catch(function(error) {
-            submitBtnEnabled() 
-            alert(error);
-        });
+        const asyncMobilePostCall = async () => {
+            submitBtnDisabled() 
+            var post_data={
+                userID:userID,
+                responses:feedbackObj,
+                quesName:quesNameArray,
+                quesTypeID:quesTypeIDArray,
+                quesOptions:quesOptionsArray,
+                responseTypeID:responseTypeID,
+                unique_value:unique_value
+            }
+            try {
+                const response = await fetch(user_saveFeedbackURL, {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json, text-plain, */*",
+                        "X-Requested-With": "XMLHttpRequest",
+                        "X-CSRF-TOKEN": token
+                    },
+                    credentials: "same-origin",
+                    body: JSON.stringify(post_data)
+                });
+                const data = await response.json();
+                // enter you logic when the fetch is successful
+                window.location.replace(user_successSaveURL);
+                submitBtnEnabled()
+            
+            } catch(error) {
+                    // enter your logic for when there is an error (ex. error toast)
+                    submitBtnEnabled() 
+                    alert(error)
+            } 
+        
+        }    
+        asyncMobilePostCall()
     }
-    
+
+
+
+
+
+
+
     //On clicking the radio button, if it is others then unhide the text box for
     radioClickFunc=function(id, othersDivID){
         //errMsgID.style.display= "none"

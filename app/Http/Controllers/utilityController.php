@@ -35,7 +35,7 @@ class utilityController extends Controller
         $sms_messages->setMessages([$msg]);
 
         try {
-               $result = $apiInstance->smsSendPost($sms_messages);
+               //$result = $apiInstance->smsSendPost($sms_messages);
             
             //print_r($result);
             return 1;

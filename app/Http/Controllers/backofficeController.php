@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class backofficeController extends Controller
 {
@@ -21,34 +22,77 @@ class backofficeController extends Controller
         
         return view('backoffice.pages.update_serviceUser');
     }   
-
-    public function show_surveyFeedback_serviceUser(){
+    
+    private function survey_serviceUser($date){
+       
         // Insert everytime when date_posted is not null
         $insert= "insert into responsetable (userID, responseTypeID) 
-                 select userID, 1 from serviceuserdetailstable WHERE
-                 userID not in 
-                 (select userID from responsetable  where date_posted  is null
-                    and responseTypeID =1 )";
+        select userID, 1 from serviceuserdetailstable WHERE
+        userID not in 
+        (select userID from responsetable  where date_posted  is null
+            and responseTypeID =1 )";
         $insertStatus=DB::insert($insert);    
         //** End of insert  */
         
         //** 1st get the ones with date posted */
         //** 2nd get the blank ones that do not have posted date as blank */
-        $selectFeedback=" SELECT *  from responsetable
-                         WHERE  month(date_posted)=month(now())  and year(date_posted)=year(now()) and responseTypeID=1
-                        UNION
-                           select *  from responsetable
-                          where responseTypeID=1 and   date_posted is null and userID not in 
-                            (select userID  from responsetable
-                             WHERE  month(date_posted)=month(now())  and year(date_posted)=year(now()) and responseTypeID=1)";
+        $selectFeedback=" SELECT *  FROM responsetable
+            WHERE  YEAR(date_of_interest) = YEAR( '" .  $date . "')
+            AND  MONTH(date_of_interest) = MONTH( '" . $date . "')
+            AND  responseTypeID=1
+        UNION
+            SELECT *  FROM responsetable
+            WHERE responseTypeID=1 AND  date_posted is null and userID not in 
+            (SELECT userID  FROM responsetable
+                WHERE  YEAR(date_of_interest) = YEAR('" . $date . "')
+                AND MONTH(date_of_interest) = MONTH('" . $date . "')  
+                AND responseTypeID=1
+            )";
         $responseStatus = DB::select($selectFeedback);
         $selectDetails="select * from serviceuserdetailstable";
         $usersDetails=DB::select ($selectDetails);
-              
-        return view('backoffice.pages.show_surveyFeedback_serviceUser',
-              ['responseStatus' => $responseStatus, 'usersDetails'=> $usersDetails]);
+        $result=array();
+        $result['userDetails']=$usersDetails;
+        $result['responseStatus']=$responseStatus;
+        return $result;
     }
-    
+  
+    public function show_surveyFeedback_serviceUser(Request $req){
+        $pageNo=$req->pageNo;
+        $month=$req->month;
+        $year=$req->year;
+        $date="";
+        $dateFlag=0;      
+        if (!$month){ //Standard outputs
+            $date=  new Carbon('first day of last month'); //last month default
+            $month = $date->format('m');
+            $year=$date->format('Y');
+        }else{ //selected dates
+            $date=$year . "-" . $month . "-01";
+            $first_day_of_curent_month = Carbon::now()->startOfMonth()->toDateString();
+            
+            $selectedtDate = Carbon::create($date);
+            $todayDate= Carbon::create($first_day_of_curent_month);
+            if ($selectedtDate->gt($todayDate)){
+                $dateFlag=1;  
+                $date=  new Carbon('first day of last month'); //last month default
+                $month = $date->format('m');
+                $year=$date->format('Y');
+            }
+        }
+          
+        
+        $result=$this->survey_serviceUser($date);
+        $responseStatus=$result['responseStatus'];
+        $usersDetails=$result['userDetails'];    
+        return view('backoffice.pages.show_surveyFeedback_serviceUser',
+              ['responseStatus' => $responseStatus, 'usersDetails'=> $usersDetails,
+               'month' => $month, 'year' => $year, 'pageNo' => $pageNo, 'dateFlag' => $dateFlag
+            ]);
+    }
+
+
+
     private function get_serviceUser_details($userID){
          $user = DB::table("serviceuserdetailstable")
          ->select('*')

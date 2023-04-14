@@ -4,7 +4,9 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
+  <meta http-equiv="Cache-Control" content="max-age=0, no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <meta content="" name="description">
   <meta content="" name="keywords">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -81,6 +83,9 @@
   {{-- Vendor JS Footer Files --}}
       @include('backoffice.inc.jsfooter') 
   {{--  End Js footer --}}
+  {{--  specific JS --}}
+       @yield('jscontents'),
+  {{--  End Page Contents --}}
 </body>
 
 </html>

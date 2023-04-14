@@ -11,7 +11,6 @@
   <script src="{{asset('custom/js/backoffice/myModal.js')}}"></script>
   <script src="{{asset('custom/js/backoffice/myForms.js')}}"></script>
   <script src="{{asset('custom/js/backoffice/employee.js')}}"></script>
-  <script src="{{asset('custom/js/backoffice/serviceuser.js')}}"></script>
 
   {{-- Template Main JS File --}}
   <script src="{{asset('assets/js/main.js')}}"></script>

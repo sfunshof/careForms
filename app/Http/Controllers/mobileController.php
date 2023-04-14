@@ -81,11 +81,15 @@ class mobileController extends Controller
         //Get the questions details
         $quesType = DB::select('select * from questable');
 
+        //Work on the date_of_interest
+        $date = Carbon::createFromFormat('Y-m-d',  $resp[0]->date_of_interest);
+        $date_of_interest = $date->format('F') . ' ' . $date->format('Y');
+   
         //Get the service users question form
         $quesForm=DB::select('select * from ' . $quesFormTable);
-        return view($quesFormPage, ['username' => $fullusername,'quesType' =>$quesType,
+        return view($quesFormPage, ['username' => $fullusername,'quesType' =>$quesType,'unique_value'=> $resp[0]->unique_value,
            'quesForm' => $quesForm ,  'quesCount'=>count($quesForm), 'userID' => $resp[0]->userID, 
-           'campaign' => $campaign, 'responseTypeID' => $responseTypeID , 'date_of_interest' => $resp[0]->date_of_interest ]);
+           'campaign' => $campaign, 'responseTypeID' => $responseTypeID , 'date_of_interest' =>$date_of_interest ]);
     }
 
     public function save_userFeedback(Request $request){
@@ -96,10 +100,13 @@ class mobileController extends Controller
         $quesTypeID=$request->quesTypeID;
         $quesOptions=$request->quesOptions;
         $responseTypeID=$request->responseTypeID;       
+        $unique_value=$request->unique_value;
+
         $where=
         [
            ['userID', $userID],
-           ['responseTypeID', $responseTypeID]
+           ['responseTypeID', $responseTypeID],
+           ['unique_value', $unique_value]
         ];
         
         $q=DB::table('responsetable')

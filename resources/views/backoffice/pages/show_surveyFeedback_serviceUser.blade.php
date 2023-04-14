@@ -17,7 +17,11 @@
                         <div class="form-floating mb-3">
                             <select class="form-select" id="serviceUserSelectMonthID" aria-label="Month"  onchange="serviceUserSelectMonthFunc()">
                                 <?php
-                                    $selected_month = date('m'); //current month
+                                    if ($month){
+                                        $selected_month=$month;
+                                    }else{    
+                                        $selected_month = date('m'); //current month
+                                    }
                                     for ($i_month = 1; $i_month <= 12; $i_month++) { 
                                         $selected = $selected_month == $i_month ? ' selected' : '';
                                         echo '<option value="'.$i_month.'"'. $selected. '>'. date('F', mktime(0,0,0,$i_month)).'</option>'."\n";
@@ -33,7 +37,12 @@
                                <?php 
                                     $year_start  = 2020;
                                     $year_end =  date('Y'); 
-                                    $selected_year = $year_end; // current Year
+                                    if ($year){
+                                        $selected_year=$year;
+                                    }else {
+                                        $selected_year = $year_end; // current Year
+                                    }
+                                   
                                     for ($i_year = $year_start; $i_year <= $year_end; $i_year++) {
                                         $selected = $selected_year == $i_year ? ' selected' : '';
                                         echo '<option value="'. $i_year  .'"'.$selected.'>'.$i_year.'</option>'."\n";
@@ -124,11 +133,16 @@
             let serviceUser_sendSMSURL= "{{ url('utility/user_sendsms')}}"; 
             let URLbase="{{ url('')}}";
             let smsPreText= @json($preText);
-          
-            let user_viewURL= "{{ url('user/view_feedback')}}"; 
-                
-            const serviceUserSelectYearID    = document.getElementById("serviceUserSelectYearID"); 
-            const serviceUserSelectMonthID  = document.getElementById("serviceUserSelectMonthID"); 
+            let user_viewURL= "{{ url('user/view_feedback')}}";
+            //adjust the datatable 's page
+            let pageNo="{{ $pageNo }}";
+            if (pageNo> 0){
+                dataTable.page(pageNo);
+            }
+            let dateFlag={{$dateFlag }};
         </script>
 
     @endsection    
+    @section('jscontents')
+        <script src="{{asset('custom/js/backoffice/serviceuser.js')}}"></script>
+    @endsection     

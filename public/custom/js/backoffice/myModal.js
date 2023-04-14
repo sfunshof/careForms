@@ -21,4 +21,16 @@ const closeBtn= '<button type="button" class="btn btn-danger" data-bs-dismiss="m
 const spinner = document.getElementById("spinner");
 const alertDangerID = document.getElementById("alertDangerID");
 const alertInfoID = document.getElementById("alertInfoID");
+
+let show_alertInfo=function(xText){
+    alertInfoID.innerHTML=xText;
+    fadeIn(alertInfoID);
+    setTimeout(() => { fadeOut(alertInfoID);}, 5*1000);
+}
+
+let show_alertDanger=function(xText){
+    alertDangerID.innerHTML=xText;
+    fadeIn(alertDangerID);
+    const x= setTimeout(fadeOut(alertDangerID), 5*1000);
+}
 ;

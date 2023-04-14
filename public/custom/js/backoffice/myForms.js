@@ -21,29 +21,32 @@ function ready(callbackFunc) {
 }
 
   // ** FADE OUT FUNCTION **
-    let  fadeOut = function(el) {
-    el.style.opacity = 1;
-    (function fade() {
-        if ((el.style.opacity -= .1) < 0) {
-            el.style.display = "none";
-        } else {
-            requestAnimationFrame(fade);
+    let fadeOut= function(element) {
+        let opacity = 1;
+        let timer = setInterval(function() {
+            if (opacity <= 0.1) {
+                clearInterval(timer);
+                element.style.display = 'none';
         }
-    })();
-};
+        element.style.opacity = opacity;
+        opacity -= opacity * 0.1;
+        }, 50);
+   }
+  
 
 // ** FADE IN FUNCTION **
-    let  fadeIn = function(el, display) {
-    el.style.opacity = 0;
-    el.style.display = display || "block";
-    (function fade() {
-        var val = parseFloat(el.style.opacity);
-        if (!((val += .1) > 1)) {
-            el.style.opacity = val;
-            requestAnimationFrame(fade);
-        }
-    })();
-};
+let fadeIn =function(element) {
+    let opacity = 0;
+    element.style.display = 'block';
+    let timer = setInterval(function() {
+      if (opacity >= 1) {
+        clearInterval(timer);
+      }
+      element.style.opacity = opacity;
+      opacity += 0.1;
+    }, 50);
+  }
+  
 
 
 ready(function() {
@@ -141,37 +144,44 @@ ready(function() {
         modalFooter.innerHTML= copyBtn +   closeBtn
         modalBtnID.click()
     }
-    sms_toUsers=function(userID,statusID,tel,responseTypeID,URLpath,date_of_interest){
-        let post_data={
-            userID:userID,
-            statusID:statusID,
-            tel:tel,
-            date_of_interest:date_of_interest,
-            responseTypeID:responseTypeID
-        }
-        fetch(URLpath, {
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json, text-plain, */*",
-                "X-Requested-With": "XMLHttpRequest",
-                "X-CSRF-TOKEN": token
-                },
-            method: 'Post',
-            credentials: "same-origin",
-            body: JSON.stringify(post_data)
-        })
-        .then((data) => {
-            spinner.setAttribute('hidden', '');
-            // alert(JSON.stringify(post_data))
-            alertInfoID.innerHTML="Message successfully sent";
-            fadeIn(alertInfoID);
-            let  myTimeout = setTimeout(fadeOut(alertInfoID), 5000);
-            if (myTimeout)  window.location.reload();
-         })
-        .catch(function(error) {
-            alert(error);
-            spinner.setAttribute('hidden', '');
-        }); 
+    sms_toUsers=function(userID,statusID,tel,responseTypeID,URLpath,date_of_interest,URLreload){
+         const asyncPostCall = async () => {
+            let post_data={
+                userID:userID,
+                statusID:statusID,
+                tel:tel,
+                date_of_interest:date_of_interest,
+                responseTypeID:responseTypeID
+            }
+            try {
+                const response = await fetch(URLpath, {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json, text-plain, */*",
+                        "X-Requested-With": "XMLHttpRequest",
+                        "X-CSRF-TOKEN": token
+                    },
+                    body: JSON.stringify(post_data)
+                });
+                 const data = await response.json();
+                   // enter you logic when the fetch is successful
+                   //alert(JSON.stringify(data));
+                   spinner.setAttribute('hidden', '');
+                    // alert(JSON.stringify(post_data))
+                    alertInfoID.innerHTML="Message successfully sent";
+                    fadeIn(alertInfoID);
+                    let  myTimeout = setTimeout(fadeOut(alertInfoID), 15000);
+                    if (myTimeout)  window.location.replace(URLreload) ;
+               
+               } catch(error) {
+                // enter your logic for when there is an error (ex. error toast)
+                alert(error);
+                spinner.setAttribute('hidden', '');
+            } 
+           
+        }    
+        asyncPostCall()
     }
 
 }) 

@@ -1,10 +1,12 @@
 <!-- Button to Open the Modal -->
-  <button type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#myModal" id="modalBtnID">
+  <button type="button" class="btn btn-primary d-none" 
+            data-bs-toggle="modal" data-bs-target="#myModal" 
+            id="modalBtnID">
      Open modal
   </button>
   
   <!-- The Modal -->
-  <div class="modal fade" id="myModal">
+  <div class="modal fade" id="myModal"  data-bs-backdrop="static" data-bs-keyboard=false  >
     <div class="modal-dialog modal-lg modal-dialog-scrollable" id="modal-dialogID">
       <div class="modal-content">
   

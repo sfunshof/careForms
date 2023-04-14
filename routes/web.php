@@ -31,7 +31,10 @@ Route::get("backoffice/companyprofile", [backofficeController::class, 'update_co
 
 Route::get("serviceUser/addnew", [backofficeController::class, 'addnew_serviceUser']);
 Route::get("serviceUser/update", [backofficeController::class, 'update_serviceUser']);
+
 Route::get("serviceUser/show_surveyfeedback", [backofficeController::class, 'show_surveyFeedback_serviceUser']);
+Route::get("serviceUser/show_surveyfeedback/{month}/{year}/{pageNo}", [backofficeController::class, 'show_surveyFeedback_serviceUser']);
+
 Route::get("user/view_feedback/{userID}/{unique_value}/{responseTypeID}", [backofficeController::class, 'view_feedback'])->where(['userID'=>'[0-9]+',  'responseTypeID'=>'[0-9]+']);
 
 Route::get("serviceUser/show_complaints", [backofficeController::class, 'show_complaints_serviceUser']);
