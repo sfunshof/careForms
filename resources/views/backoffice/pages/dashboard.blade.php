@@ -72,6 +72,7 @@
                         $quesOptionS_prev=$quesOptions[$prev_date];
                     }    
                 }
+                print_r( $i . '  = i s=' .  $status);     
             ?>
             <div class="row">
                 @if ($status==0)
