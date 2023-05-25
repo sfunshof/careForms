@@ -240,6 +240,7 @@ function ready(callbackFunc) {
                 responses:feedbackObj,
                 quesName:quesNameArray,
                 quesTypeID:quesTypeIDArray,
+                CQCid:CQCidArray,
                 quesOptions:quesOptionsArray,
                 responseTypeID:responseTypeID,
                 unique_value:unique_value
@@ -262,9 +263,9 @@ function ready(callbackFunc) {
                 submitBtnEnabled()
             
             } catch(error) {
-                    // enter your logic for when there is an error (ex. error toast)
-                    submitBtnEnabled() 
-                    alert(error)
+                // enter your logic for when there is an error (ex. error toast)
+                submitBtnEnabled() 
+                alert(error)
             } 
         
         }    

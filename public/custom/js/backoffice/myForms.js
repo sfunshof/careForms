@@ -31,6 +31,7 @@ function ready(callbackFunc) {
         element.style.opacity = opacity;
         opacity -= opacity * 0.1;
         }, 50);
+      
    }
   
 
@@ -69,15 +70,42 @@ ready(function() {
         getData(url)
     }
 
+    
     let show_feedbackForm=function(data){
         let text = "";
-        modalFooter.innerHTML=  closeBtn
-        modalTitle.innerHTML=data.companyName +data.respType + data.fullName + data.datePosted + data.dateReceived ;
+        let company_ = "<h4>"  +  data.companyName +  ' ' +  data.month  +  data.year +  data.respType  + ' </h4>'
+        let  name_  = '<h5>' + data.fullName +  '</h5>'
+        let  date_ =  '<h5>' +  '<span class="text-center">' +  data.datePosted + data.dateReceived  + '</span>' + '</h5>' ;
+        let title= company_ + name_  + date_
         let quesNamesArray=JSON.parse(data.quesName);     //How many How can
         let quesTypeIDArray=JSON.parse(data.quesTypeID);  //1,2 0,0, 2
         let quesOptionsArray=JSON.parse(data.quesOptions); //Yes, No
         let responseTemp=JSON.parse(data.response); //{1:"one", 2:"two"} or [0ne, two]
         
+        let printModalContentsToPDF =function(modalElement){
+           // Clone the modal element
+            let modalClone = modalElement.cloneNode(true);
+            // Remove all buttons from the modal footer
+            let footerButtons = modalClone.querySelectorAll('.modal-footer button');
+            for (let i = 0; i < footerButtons.length; i++) {
+                footerButtons[i].parentNode.removeChild(footerButtons[i]);
+            }
+            // Create a new jsPDF instance
+            const doc = new jsPDF();
+            // Add the modal clone to the PDF document
+            doc.fromHTML(modalClone.outerHTML, 15, 15, {
+                'width': 170
+             });
+
+            // Save the PDF document
+            doc.save('modal.pdf');
+        }
+
+         printToPdf_modalFunc=function(){
+            let modalElement = document.getElementById("myModal");
+            printModalContentsToPDF(modalElement);
+         }
+
         //convert object to array
         let responseArray=[]
         if (typeof responseTemp === 'object'){
@@ -85,7 +113,16 @@ ready(function() {
         }else{
             responseArray=responseTemp;   
         }
-                
+        
+        let cardStart= '<div class="card">' +
+                            '<div class="card-body">' +
+                                '<form class="row g-3"> ' + 
+                                    '<div class="col-12"> ' 
+        let cardStop=                '</div>' +
+                                  '</form>' +
+                             '</div>' +
+                         '</div>'           
+        text +=  cardStart
         let pageCount=0
         let quesName=""
         let ulResponse="";
@@ -95,9 +132,9 @@ ready(function() {
         //alert(JSON.stringify(quesOptionsArray))
         function myFunction(item, index) {
             if (item > 0){
-                quesName= (pageCount +1)     + ' . ' + quesNamesArray[index]
-                text +=  quesName + "<br>";  
-                ulResponse= "<ul>"
+                quesName= '<div class="mb-3">  <label class="form-label">'  +   (pageCount +1)     + ' . ' + quesNamesArray[index] + '</label>'
+                text +=  quesName ;  
+                ulResponse= '<ul class="ms-3  mb-0 pb-0 ">'
                 options="" ;
                 optionsArray=JSON.parse(quesOptionsArray[index]) 
                 let bold1='';
@@ -111,22 +148,34 @@ ready(function() {
                       options += "<li> " +  optionsArray[i] + " </li>"
                    }
                 } 
-                ulResponse += bold1 + responseArray[pageCount]  + bold2
-                text += options + ulResponse + "</ul>"
+               // ulResponse += bold1 + responseArray[pageCount]  + bold2
+                text += ulResponse;
+                text += options +   bold1 + responseArray[pageCount]  + bold2 + '</ul> </div>'
                 pageCount++
             }else{
-              text +=  quesNamesArray[index] + "<br>"  
+                text +=  quesNamesArray[index] + "<br>"  
             }
             
         }
-        modalBody.innerHTML=text;
-        modalBtnID.click()
+        text +=  cardStop
+        let bodyMsg=text;
+        let btns=pdfBtn +  closeBtn;
+        show_modal(title, bodyMsg,btns)
     }
     
-    too_manySMS=function(smsMsg,tel){
+    too_manySMS=function(smsMsg,tel, status){
         spinner.setAttribute('hidden', '');
-        modalTitle.innerHTML="Error: Too many sms sent to " + tel + " Please send this text  manaually";
-        modalBody.innerHTML=smsMsg;
+        let title=""
+        if (status==3){ 
+            title="Error: Too many emails already sent. Set Delivery to SMS to send";
+        }else if (status==0) {
+            title ="Error: Too many emails and sms already sent. Copy and send sms to " + tel ;
+        }else if (status==1) {
+            title ="Error: Too many sms sent to " + tel + " Copy and send sms manually";
+        }else if (status==4) {
+            title ="Error: Too many sms sent to " + tel + " Set Delivery to Email to send";
+        }
+            let bodyMsg =smsMsg;
         //copy to clipboard
         copyToClipboard=function(){
             navigator.clipboard.writeText(smsMsg)
@@ -141,17 +190,21 @@ ready(function() {
             }, 600)
 
         }
-        modalFooter.innerHTML= copyBtn +   closeBtn
-        modalBtnID.click()
+        let btns= copyBtn +   closeBtn
+        show_modal(title, bodyMsg, btns )
     }
-    sms_toUsers=function(userID,statusID,tel,responseTypeID,URLpath,date_of_interest,URLreload){
-         const asyncPostCall = async () => {
+    
+    sms_toUsers=function(userID,statusID, tel,responseTypeID,URLpath,date_of_interest,URLreload,sms,sentCount,sentEmailCount){
+        const asyncPostCall = async () => {
             let post_data={
                 userID:userID,
                 statusID:statusID,
-                tel:tel,
+                 tel:tel,
                 date_of_interest:date_of_interest,
-                responseTypeID:responseTypeID
+                responseTypeID:responseTypeID,
+                sms:sms,
+                sentCount:sentCount,
+                sentEmailCount:sentEmailCount
             }
             try {
                 const response = await fetch(URLpath, {
@@ -166,9 +219,9 @@ ready(function() {
                 });
                  const data = await response.json();
                    // enter you logic when the fetch is successful
-                   //alert(JSON.stringify(data));
+                   alert(JSON.stringify(data));
                    spinner.setAttribute('hidden', '');
-                    // alert(JSON.stringify(post_data))
+                    //alert(JSON.stringify(post_data))
                     alertInfoID.innerHTML="Message successfully sent";
                     fadeIn(alertInfoID);
                     let  myTimeout = setTimeout(fadeOut(alertInfoID), 15000);

@@ -22,15 +22,17 @@
             </a>
           </li>
           <li>
-            <a href="{{ url('/serviceUser/update')}}">
-              <i class="bi bi-circle"></i><span>Update Service User</span>
+            <a href="{{ url('/serviceUser/browse')}}">
+              <i class="bi bi-circle"></i><span>Browse Service Users</span>
             </a>
           </li>
           <li>
-            <a href="{{ url('/serviceUser/show_surveyfeedback')}}">
+            <a href="{{ url('/serviceUser/browse_surveyfeedback')}}">
               <i class="bi bi-circle"></i><span>Service User Survey</span>
             </a>
           </li>
+          
+          {{--
           <li>
             <a href="{{ url('/serviceUser/show_complaints')}}">
               <i class="bi bi-circle"></i><span> Complaints feedback</span>
@@ -41,10 +43,34 @@
               <i class="bi bi-circle"></i><span> Compliments  Slip </span>
             </a>
           </li>
-
+          --}}   
         </ul>
       </li>
       {{-- End Service user Nav --}}
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#employee-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Employees</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="employee-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ url('/employee/addnew')}}">
+              <i class="bi bi-circle"></i><span>Add New Employee</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url('/employee/browse')}}">
+              <i class="bi bi-circle"></i><span>Browse Employees</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url('/employee/browse_surveyfeedback')}}">
+              <i class="bi bi-circle"></i><span>Employee Survey</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      {{-- End employee Nav --}}
 
       {{-- BuildForms --}}
       <li class="nav-item">

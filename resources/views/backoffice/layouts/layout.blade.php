@@ -57,7 +57,7 @@
         {{-- End Page Title --}}
        
         {{--  Page Contents --}}
-        @yield('contents'),
+        @yield('contents')
         {{--  End Page Contents --}}
     
   </main><!-- End #main -->
@@ -77,14 +77,15 @@
   {{-- ======= Footer ======= --}}
        @include('backoffice.inc.footer') 
   {{-- End Footer --}}
-
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
+   {{--
+      <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+   --}}
+   
   {{-- Vendor JS Footer Files --}}
       @include('backoffice.inc.jsfooter') 
   {{--  End Js footer --}}
   {{--  specific JS --}}
-       @yield('jscontents'),
+       @yield('jscontents')
   {{--  End Page Contents --}}
 </body>
 

@@ -12,13 +12,16 @@
   
         <!-- Modal Header -->
         <div class="modal-header">
-          <h5 class="modal-title" >Modal Heading</h5>
+          <h5 class="modal-title text-center" >Modal Heading</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
   
         <!-- Modal body -->
-        <div class="modal-body" id="modalBodyID">
-               
+        <div class="modal-body">
+            <div id="modalBodyID"> </div>
+            <div hidden id="spinner_modal"></div> 
+            <div  style="display:none"  class="alert alert-danger text-center"  id="alertDanger_mobileID"  role="alert"> </div>
+            <div  style="display:none" class="alert alert-info text-center" id="alertInfo_mobileID" role="alert"> </div>
         </div>
   
         <!-- Modal footer -->

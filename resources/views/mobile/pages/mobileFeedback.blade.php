@@ -11,6 +11,7 @@
             </h5>
             <?php
                 $quesTypeIDArray=[]; 
+                $CQCidArray=[];
                 $quesIDArray=[]; 
                 $quesNameArray=[];
                 $quesOptionsArray=[];
@@ -27,6 +28,7 @@
                     // array to hold  QuesTypeID  to be used by JS
                     //if ($ques->quesTypeID> 0 ){
                         array_push($quesTypeIDArray, $ques->quesTypeID); 
+                        array_push($CQCidArray, $ques->CQCid);
                         //array to hold  QuesID to be used later by JS
                         array_push($quesIDArray, $ques->quesID); 
                         //array to hold Quesname
@@ -93,6 +95,7 @@
             <div id="div{{ $i}}" class="d-none" > </div>
         @endfor
         <script>    
+            let CQCidArray=@json($CQCidArray); //0, 2, 4
             let quesTypeIDArray= @json($quesTypeIDArray); // 0,   1,  1,   1,  2,  0
             let quesIDArray= @json($quesIDArray);         // 40, 45,  49,  54, 56, 67
             let quesNameArray=@json($quesNameArray);      // how, What, how, ...

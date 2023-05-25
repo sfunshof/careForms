@@ -28,7 +28,7 @@ class mobileController extends Controller
         if (!count($resp)){
             return view('mobile.pages.userNotFound', ['userType' =>'User', 'username'=>'', 'campaign'=>$campaign, 'date_of_interest'=>''] );
         }
-    
+      
 
         //Hey we found a user, check if it has nt yet been submitted
         if (!is_null($resp[0]->date_received)){
@@ -45,9 +45,12 @@ class mobileController extends Controller
         if ($responseTypeID==1){
             $userTable="serviceuserdetailstable";
             $userType="ServiceUser";
-            $quesFormTable="serviceuserformtable";
-            $quesFormPage="mobile.pages.serviceUserHome";
-        }  
+        }else if  ($responseTypeID==2){
+            $userTable="employeedetailstable";
+            $userType="Employee";
+        } 
+        $quesFormTable="buildformtable";
+        $quesFormPage="mobile.pages.mobileFeedback";  
         //ResponseTypeID is valid; what is the csmpaign name
         $respX = DB::table("responsetypetable")
          ->select('*')
@@ -67,11 +70,17 @@ class mobileController extends Controller
         }
         //Mr John Doe of 23 London Rd, Redhill
         $extra="";
+        $title="";
+        $middleName="";
         if ($responseTypeID==1){
             $extra=' of ' . $user[0]->address;
+            $title=$user[0]->title;
+        }else if ($responseTypeID==2){
+            $middleName=$user[0]->middleName;
         }
-        $fullusername = $user[0]->title . ' ' . $user[0]->firstName . ' ' . $user[0]->lastName . $extra;
+        $fullusername = $title . ' ' . $user[0]->firstName . ' ' . $middleName . '  ' .   $user[0]->lastName . $extra;
             
+        $companyID=$user[0]->companyID;
         //Real company details
         $selectCompany=DB::select('select companyName, companyID from companyprofiletable where companyID=? ',  [$user[0]->companyID]);
         if ($selectCompany){
@@ -86,7 +95,8 @@ class mobileController extends Controller
         $date_of_interest = $date->format('F') . ' ' . $date->format('Y');
    
         //Get the service users question form
-        $quesForm=DB::select('select * from ' . $quesFormTable);
+        $quesForm=DB::select('select * from ' . $quesFormTable . ' where companyID=? and responseTypeID =? ', [$companyID, $responseTypeID]);
+
         return view($quesFormPage, ['username' => $fullusername,'quesType' =>$quesType,'unique_value'=> $resp[0]->unique_value,
            'quesForm' => $quesForm ,  'quesCount'=>count($quesForm), 'userID' => $resp[0]->userID, 
            'campaign' => $campaign, 'responseTypeID' => $responseTypeID , 'date_of_interest' =>$date_of_interest ]);
@@ -98,6 +108,7 @@ class mobileController extends Controller
         $responses=$request->responses;
         $quesName=$request->quesName;
         $quesTypeID=$request->quesTypeID;
+        $CQCid=$request->CQCid;
         $quesOptions=$request->quesOptions;
         $responseTypeID=$request->responseTypeID;       
         $unique_value=$request->unique_value;
@@ -118,6 +129,7 @@ class mobileController extends Controller
                    'responses' => $responses,
                    'quesName' => $quesName,
                    'quesTypeID' => $quesTypeID,
+                   'CQCid'=>$CQCid,
                    'quesOptions' => $quesOptions,
                    ]);
 
