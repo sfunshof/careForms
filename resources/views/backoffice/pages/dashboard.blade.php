@@ -54,6 +54,7 @@
                     
                 if (!isset($chartDateArray[0])) {
                     //Undefined latest date
+                    
                 }else{
                     $status=1;
                     $latest_date= $chartDateArray[0];
@@ -103,6 +104,7 @@
                             $posted=get_arrayElement($postedCountArray,$date);
                             $resp=get_arrayElement($respCountArray,$date);
                             $per=100*($resp/$posted);
+                            $per=round($per,2);
                         }
                         
                     ?>
@@ -117,7 +119,7 @@
                                     <div class="ps-3"> 
                                         <h5> <strong> {{ $postedCountArray[$chartDateArray[0]]}} </strong> <span> {{$survey_sent}} </span> </h5> 
                                         <h5> <strong> {{ $respCountArray[$chartDateArray[0]]}} </strong>  <span> {{ $survey_resp }} </span> </h5>  
-                                        <h5> <strong> {{ 100* $respCountArray[$chartDateArray[0]]/($postedCountArray[$chartDateArray[0]])   }}%   </strong> <span> {{ $respRate}}  </span> <h5>                         
+                                        <h5> <strong> {{  round(100* $respCountArray[$chartDateArray[0]]/($postedCountArray[$chartDateArray[0]]),2)  }}%   </strong> <span> {{ $respRate}}  </span> <h5>                         
                                     </div>
                                 </div>
                             </div>
