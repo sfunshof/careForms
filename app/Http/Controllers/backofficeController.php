@@ -118,14 +118,16 @@ class backofficeController extends Controller
             foreach($responses as $response){ // for each employee ["Yes", "No", "Maybe"]
                 $respArray=json_decode($response->responses); // converts '["yes", "No"] into proper array 
                 $i=0;
-                foreach($respArray as $resp){ //Now each Yes, No May is saved into diffrent array
-                    $respT=$resp;
-                    if (str_contains($resp, "Others<br>")){
-                       $respT="Others";
+                if (!is_null( $respArray)){
+                    foreach($respArray as $resp){ //Now each Yes, No May is saved into diffrent array
+                        $respT=$resp;
+                        if (str_contains($resp, "Others<br>")){
+                        $respT="Others";
+                        }
+                        array_push($responseArray[$i], $respT); // respArray[1]=ques1, respArray[2]=ques2
+                        $i++;
                     }
-                    array_push($responseArray[$i], $respT); // respArray[1]=ques1, respArray[2]=ques2
-                    $i++;
-                }
+                }    
             }
             //1st ques => responseArray[1]=[Yes1, No2, Yes3,No4]       ==>  outputArray[1]=[Yes=>2,No=>2]
             //2nd ques => responseArray[2]=[No1,  Yes2, Yes3,Maybe4]   ==>  outputArray[2]=[Yes=>2, No=>1, Maybe=>1]
