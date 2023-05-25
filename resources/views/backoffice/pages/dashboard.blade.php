@@ -4,21 +4,18 @@
 @endsection
 @section('contents')
     <section class="section dashboard">
-        <?php 
-            $status=0;
-            $quesTypeIDS= [];
-            $CQCidS= [];
-            $quesNameS=[];
-            $quesOptionS=[];
-            $quesTypeIDS_prev= [];
-            $CQCidS_prev= [];
-            $quesNameS_prev=[];
-            $quesOptionS_prev=[];
-        ?>
-        
         @for ($i=1;$i<3;$i++)
             <?php 
-                
+                $status=0;
+                $quesTypeIDS= [];
+                $CQCidS= [];
+                $quesNameS=[];
+                $quesOptionS=[];
+                $quesTypeIDS_prev= [];
+                $CQCidS_prev= [];
+                $quesNameS_prev=[];
+                $quesOptionS_prev=[];
+          
                 $chartDateArray= $chartDateArray_su;
                 $dashboard_date= $dashboard_date_su;
                 $dashboard_date_prev=$dashboard_date_prev_su;
@@ -105,7 +102,7 @@
                         }else{
                             $posted=get_arrayElement($postedCountArray,$date);
                             $resp=get_arrayElement($respCountArray,$date);
-                            $per=100*($posted/$resp);
+                            $per=100*($resp/$posted);
                         }
                         
                     ?>
@@ -120,7 +117,7 @@
                                     <div class="ps-3"> 
                                         <h5> <strong> {{ $postedCountArray[$chartDateArray[0]]}} </strong> <span> {{$survey_sent}} </span> </h5> 
                                         <h5> <strong> {{ $respCountArray[$chartDateArray[0]]}} </strong>  <span> {{ $survey_resp }} </span> </h5>  
-                                        <h5> <strong> {{ 100*($postedCountArray[$chartDateArray[0]] / $respCountArray[$chartDateArray[0]])}}%   </strong> <span> {{ $respRate}}  </span> <h5>                         
+                                        <h5> <strong> {{ 100* $respCountArray[$chartDateArray[0]]/($postedCountArray[$chartDateArray[0]])   }}%   </strong> <span> {{ $respRate}}  </span> <h5>                         
                                     </div>
                                 </div>
                             </div>
@@ -129,7 +126,11 @@
                     <div  class="col-md-6">
                         <div class="card">
                             <div class="card-body">
-                                <h6 class="card-title">Previous Data | <span>{{ $dashboard_date_prev }} </span>  </h6>
+                                <?php
+                                   $date_prev= $dashboard_date_prev;
+                                   if ($date_prev=="") $date_prev="No Data Available";
+                                ?>
+                                <h6 class="card-title">Previous Data | <span>{{$date_prev}} </span>  </h6>
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-people text-primary"></i>
@@ -157,7 +158,7 @@
                                     <div class="card-body">
                                         <h6 class="card-title">{{$CQCArray[$CQCidS[$loop->index]]  }}</h6>
                                         <div class="row">
-                                            <label for="inputText" class="col-md-8 col-form-label"> {{ $quesNameS[$loop->index]}} </label>
+                                            <label for="inputText"   style= "white-space:nowrap; overflow:hidden;text-overflow:ellipsis;"        class="col-md-8 col-form-label"> {{ $quesNameS[$loop->index]}} </label>
                                             <div class="form-floating mb-3 col-md-2">
                                                 <select class="form-select" id="{{$idMonth}}"     aria-label="Floating label select example"  onChange="monthChangeFunc('{{$loop->index}}', '{{ $userType }}')" >
                                                     @for ($i = 0; $i < 12; $i++)
