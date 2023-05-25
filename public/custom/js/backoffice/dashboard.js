@@ -252,7 +252,7 @@ let set_setupGraphData=function(userType,quesTypeID,CQCArray,responseKeyArray,re
             let caption="For ques"
             let dataArray_current=result[4]
             let labelArray_current =result[5] 
-            alert(JSON.stringify(dataArray_current)) //
+            //alert(JSON.stringify(dataArray_current)) //
             let myChart=draw_chart(idChart, dataArray_current,labelArray_current,caption)
             let chartObj={}
             //chartObj.date=date;
@@ -262,6 +262,7 @@ let set_setupGraphData=function(userType,quesTypeID,CQCArray,responseKeyArray,re
         }
     }
 }
+
 set_setupGraphData("_su_", quesTypeID_su,CQCArray_su,responseKeyArray_su,responseValueArray_su, pieChartArray_su, quesOptionsArray_su)
 set_setupGraphData("_emp_", quesTypeID_emp,CQCArray_emp,responseKeyArray_emp,responseValueArray_emp, pieChartArray_emp, quesOptionsArray_emp)
 

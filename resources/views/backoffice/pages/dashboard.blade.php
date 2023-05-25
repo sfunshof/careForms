@@ -4,18 +4,29 @@
 @endsection
 @section('contents')
     <section class="section dashboard">
+        <?php 
+            $quesTypeIDS= [];
+            $CQCidS= [];
+            $quesNameS=[];
+            $quesOptionS=[];
+            $CQCidS_su= [];
+            $quesNameS_su=[];
+            $quesOptionS_su=[];
+            $quesTypeIDS_su=[];
+            $CQCidS_emp= [];
+            $quesNameS_emp=[];
+            $quesOptionS_emp=[];
+            $quesTypeIDS_emp=[];
+      
+            $quesTypeIDS_prev= [];
+            $CQCidS_prev= [];
+            $quesNameS_prev=[];
+            $quesOptionS_prev=[]
+    ?>
         @for ($j=1;$j<3;$j++)
             <?php 
                 $status=0;
-                $quesTypeIDS= [];
-                $CQCidS= [];
-                $quesNameS=[];
-                $quesOptionS=[];
-                $quesTypeIDS_prev= [];
-                $CQCidS_prev= [];
-                $quesNameS_prev=[];
-                $quesOptionS_prev=[];
-          
+                      
                 $chartDateArray= $chartDateArray_su;
                 $dashboard_date= $dashboard_date_su;
                 $dashboard_date_prev=$dashboard_date_prev_su;
@@ -211,7 +222,20 @@
                                 </div> {{--  End Card --}}
                             </div> {{--  End md-12 Column --}}
                         @endif
-                    @endforeach    
+                        <?php 
+                            if ($j==1){
+                                $CQCidS_su=$CQCidS;
+                                $quesTypeIDS_su=$quesTypeIDS;
+                                $quesOptionS_su=$quesOptionS;
+                                $quesTypeIDS_su=$quesTypeIDS;
+                            }elseif ($j==2){
+                                $CQCidS_emp=$CQCidS;
+                                $quesTypeIDS_emp=$quesTypeIDS;
+                                $quesOptionS_emp=$quesOptionS;
+                                $quesTypeIDS_emp=$quesTypeIDS;
+                            }
+                        ?>
+                     @endforeach    
                 @endif                           
             </div>{{--  End of Main row --}}
         @endfor
@@ -220,17 +244,17 @@
         let responseKeyArray_emp=@json($responseKeyArray_emp);
         let responseValueArray_emp=@json($responseValueArray_emp);
         let chartDateArray_emp=@json($chartDateArray_emp);
-        let CQCArray_emp=@json($CQCidS);
-        let quesTypeID_emp=@json($quesTypeIDS);
-        let quesOptions_emp=@json($quesOptionS);
+        let CQCArray_emp=@json($CQCidS_emp);
+        let quesTypeID_emp=@json($quesTypeIDS_emp);
+        let quesOptions_emp=@json($quesOptionS_emp);
         let quesOptionsArray_emp=@json($quesOptions_emp);
 
         let responseKeyArray_su=@json($responseKeyArray_su);
         let responseValueArray_su=@json($responseValueArray_su);
         let chartDateArray_su=@json($chartDateArray_su);
-        let CQCArray_su=@json($CQCidS);
-        let quesTypeID_su=@json($quesTypeIDS);
-        let quesOptions_su=@json($quesOptionS);
+        let CQCArray_su=@json($CQCidS_su);
+        let quesTypeID_su=@json($quesTypeIDS_su);
+        let quesOptions_su=@json($quesOptionS_su);
         let quesOptionsArray_su=@json($quesOptions_su);
     </script>
 @endsection
