@@ -4,7 +4,7 @@
 @endsection
 @section('contents')
     <section class="section dashboard">
-        @for ($j=1;$j<2;$j++)
+        @for ($j=1;$j<3;$j++)
             <?php 
                 $status=0;
                 $quesTypeIDS= [];
@@ -58,6 +58,7 @@
                 }else{
                     $status=1;
                     $latest_date= $chartDateArray[0];
+                    
                     $quesTypeIDS= $quesTypeIDs[$latest_date];
                     $CQCidS= $CQCids[$latest_date];
                     $quesNameS=$quesNames[$latest_date];
@@ -72,7 +73,7 @@
                         $quesOptionS_prev=$quesOptions[$prev_date];
                     }    
                 }
-                //print_r( $i . '  = i s=' .  $status);     
+               
             ?>
             <div class="row">
                 @if ($status==0)

@@ -252,7 +252,7 @@ let set_setupGraphData=function(userType,quesTypeID,CQCArray,responseKeyArray,re
             let caption="For ques"
             let dataArray_current=result[4]
             let labelArray_current =result[5] 
-            //alert(JSON.stringify(testArray)) //
+            alert(JSON.stringify(dataArray_current)) //
             let myChart=draw_chart(idChart, dataArray_current,labelArray_current,caption)
             let chartObj={}
             //chartObj.date=date;
