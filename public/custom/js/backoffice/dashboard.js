@@ -306,7 +306,8 @@ ready(function() {
             let yr=document.getElementById(yrID).value
             let date=yr + "-" + mn + "-01"
             let obj = pieChartArray.find(item => item.id === chID)
-            let myChart=obj.myChart
+            let myChart=null ;
+            if (obj) obj.myChart
             //check if the date exist
             let dateIndex=chartDateArray.indexOf(date)
             if (dateIndex >= 0){

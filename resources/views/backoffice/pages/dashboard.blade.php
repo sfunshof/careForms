@@ -4,7 +4,7 @@
 @endsection
 @section('contents')
     <section class="section dashboard">
-        @for ($j=1;$j<3;$j++)
+        @for ($j=1;$j<2;$j++)
             <?php 
                 $status=0;
                 $quesTypeIDS= [];
